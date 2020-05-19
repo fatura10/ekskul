@@ -88,44 +88,22 @@
 
 
 <script type="text/javascript">
-  $('.btn-detail').click(function(){
-    $('#tambahAnggota').attr('action','/editEkskul')
-    $('#modal-tittle').text('Edit Ekskul')
-    $.get('/guru/getDetail?id_guru='+$(this).data('id'),function(data){
-      console.log(data);
-      var html="";
-      var dataEkskul = data.dataEkskul
-      //$('.removeOption').remove()
-      $.each(data.dataKota,function(){
-        html+="<option class='kotaOption' value='"+this.id_kota+"'>"+this.nama+"</option>"
-
+$('input[name="liveSearch"]').keydown(function(){
+  $.get('/siswa/getList?name='+$(this).val()+'&kelas='+$('select[name="kelas"]').val(),function(rs){
+    console.log(rs);
+    html = "";
+    $.each(rs,function(i,e){
+      html += "<a href='#' style='text-decoration : none' class='selected-name' data-id='"+e.id_siswa+"'>"+(i+1)+". "+e.nama_siswa+"</a></br>"
+    })
+    $('#liveSearch').html(html).promise().done(function(){
+      $('#liveSearch').css({display : "block"})
+      $('.selected-name').click(function(){
+        $('input[name="id_guru"]').val($(this).data('id'))
+        $('input[name="liveSearch"]').val($(this).text().split('.')[1])
+        $('#liveSearch').css({display : "none"})
       })
-        $('select[name="id_kota"]').html(html).promise().done(function(){
-          $('select[name="id_kota"]').val(dataEkskul.id_kota)
-        })
-
-
-      $('input[name="id_guru"]').val(dataEkskul.id_guru)
-      $('input[name="nip"]').val(dataEkskul.nip)
-      $('input[name="nama_guru"]').val(dataEkskul.nama_guru)
-      $('input[name="email"]').val(dataEkskul.email)
-      $('select[name="jns_kel"]').val(dataEkskul.jns_kel)
-      $('input[name="telepon"]').val(dataEkskul.telepon)
-      $('input[name="tempat_lahir"]').val(dataEkskul.tempat_lahir)
-      $('input[name="tgl_lahir"]').val(dataEkskul.tgl_lahir)
-      $('select[name="id_provinsi"]').val(dataEkskul.id_provinsi)
-
-      $('select[name="agama"]').val(dataEkskul.agama)
-      $('textarea[name="alamat"]').val(dataEkskul.alamat)
-      $('input[name="kode_pos"]').val(dataEkskul.kode_pos)
     })
   })
-
-  $('.btn-add').click(function(){
-    $('#tambahAnggota').attr('action','/tambahAnggota')
-    $('#modal-tittle').text('Tambah Ekskul')
-    $('#tambahAnggota')[0].reset()
-
-  })
+})
 </script>
 @endsection

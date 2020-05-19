@@ -24,6 +24,7 @@ Route::get('/detailSiswa','SiswaController@detailSiswa');
 Route::post('/tambahSiswa','SiswaController@tambahSiswa');
 Route::post('/updateSiswa','SiswaController@updateSiswa');
 Route::post('/updateOrtu','SiswaController@updateOrtu');
+Route::get('/siswa/getList','SiswaController@getList');
 
 /*Routing Kelas*/
 Route::get('/kelas','KelasController@index');

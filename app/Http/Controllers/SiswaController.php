@@ -61,6 +61,12 @@ class SiswaController extends Controller
         return redirect()->back()->with(Siswa::insertData($data));
     }
 
+    public function getList(Request $req)
+    {
+      $dataEkskul = Siswa::where('nama_siswa', 'like', $req->input('nama').'%')->where('id_kelas',$req->input('kelas'))->get();
+      return response()->json($dataEkskul);
+    }
+
     public function detailSiswa (Request $req)
     {
       return view('page.detailSiswa',$this->siswaData($req->input('id')));
