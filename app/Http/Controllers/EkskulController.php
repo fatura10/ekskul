@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Ekskul;
 use App\Pelatih;
 use App\Japel;
+use App\Kelas;
 
 class EkskulController extends Controller
 {
@@ -21,6 +22,13 @@ class EkskulController extends Controller
       $dataPelatih = Pelatih::select('a.nama_guru')->join('tb_guru as a','a.id_guru','tb_pel_ekskul.id_user')->get();
       $dataJadwal = Japel::where('id_ekskul',$req->input('id_ekskul'))->get();
       return view('page.detailEkskul',compact('dataEkskul','dataPelatih','dataJadwal'));
+    }
+
+    public function anggotaEkskul (Request $req)
+    {
+      $dataEkskul = Ekskul::where('id_ekskul',$req->input('id_ekskul'))->first();
+      $dataKelas = Kelas::get();
+      return view('page.anggotaEkskul',compact('dataEkskul','dataKelas'));
     }
 
     public function tambahPelatih(Request $req)
