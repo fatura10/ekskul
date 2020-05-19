@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 19 Bulan Mei 2020 pada 07.14
--- Versi server: 10.3.16-MariaDB
--- Versi PHP: 7.3.7
+-- Generation Time: May 19, 2020 at 10:27 AM
+-- Server version: 10.4.8-MariaDB
+-- PHP Version: 7.1.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kota`
+-- Table structure for table `kota`
 --
 
 CREATE TABLE `kota` (
@@ -35,7 +35,7 @@ CREATE TABLE `kota` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data untuk tabel `kota`
+-- Dumping data for table `kota`
 --
 
 INSERT INTO `kota` (`id_kota`, `id_provinsi`, `nama`) VALUES
@@ -557,7 +557,7 @@ INSERT INTO `kota` (`id_kota`, `id_provinsi`, `nama`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `provinsi`
+-- Table structure for table `provinsi`
 --
 
 CREATE TABLE `provinsi` (
@@ -566,7 +566,7 @@ CREATE TABLE `provinsi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data untuk tabel `provinsi`
+-- Dumping data for table `provinsi`
 --
 
 INSERT INTO `provinsi` (`id_provinsi`, `nama`) VALUES
@@ -608,7 +608,7 @@ INSERT INTO `provinsi` (`id_provinsi`, `nama`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_absen`
+-- Table structure for table `tb_absen`
 --
 
 CREATE TABLE `tb_absen` (
@@ -622,7 +622,7 @@ CREATE TABLE `tb_absen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_absen`
+-- Dumping data for table `tb_absen`
 --
 
 INSERT INTO `tb_absen` (`id_absen`, `id_guru`, `id_jadwal`, `absen_in`, `absen_out`, `date`, `created_dt`) VALUES
@@ -633,7 +633,7 @@ INSERT INTO `tb_absen` (`id_absen`, `id_guru`, `id_jadwal`, `absen_in`, `absen_o
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_ekskul`
+-- Table structure for table `tb_ekskul`
 --
 
 CREATE TABLE `tb_ekskul` (
@@ -649,7 +649,7 @@ CREATE TABLE `tb_ekskul` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_ekskul`
+-- Dumping data for table `tb_ekskul`
 --
 
 INSERT INTO `tb_ekskul` (`id_ekskul`, `nama`, `alamat`, `telepon`, `tgl_gabung`, `created_dt`, `created_user`, `updated_dt`, `updated_user`) VALUES
@@ -658,7 +658,7 @@ INSERT INTO `tb_ekskul` (`id_ekskul`, `nama`, `alamat`, `telepon`, `tgl_gabung`,
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_guru`
+-- Table structure for table `tb_guru`
 --
 
 CREATE TABLE `tb_guru` (
@@ -683,7 +683,7 @@ CREATE TABLE `tb_guru` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_guru`
+-- Dumping data for table `tb_guru`
 --
 
 INSERT INTO `tb_guru` (`id_guru`, `nama_guru`, `nip`, `jns_kel`, `alamat`, `id_provinsi`, `id_kota`, `kode_pos`, `email`, `telepon`, `tempat_lahir`, `tgl_lahir`, `agama`, `foto`, `created_dt`, `created_user`, `updated_dt`, `updated_user`) VALUES
@@ -693,7 +693,7 @@ INSERT INTO `tb_guru` (`id_guru`, `nama_guru`, `nip`, `jns_kel`, `alamat`, `id_p
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_hari`
+-- Table structure for table `tb_hari`
 --
 
 CREATE TABLE `tb_hari` (
@@ -702,7 +702,7 @@ CREATE TABLE `tb_hari` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_hari`
+-- Dumping data for table `tb_hari`
 --
 
 INSERT INTO `tb_hari` (`id_hari`, `nama`) VALUES
@@ -717,19 +717,15 @@ INSERT INTO `tb_hari` (`id_hari`, `nama`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_japel`
+-- Table structure for table `tb_jad`
 --
 
-CREATE TABLE `tb_japel` (
+CREATE TABLE `tb_jad` (
   `id_jadwal` int(10) NOT NULL,
-  `id_mapel` int(10) NOT NULL,
-  `id_guru` int(10) NOT NULL,
-  `id_kelas` int(10) NOT NULL,
-  `jurusan` varchar(60) DEFAULT NULL,
-  `jenjang` char(3) DEFAULT NULL,
+  `id_ekskul` int(10) NOT NULL,
   `jam` int(2) DEFAULT NULL,
   `starting_hour` time NOT NULL,
-  `finishing_hour` time DEFAULT NULL,
+  `finishing_hour` time NOT NULL,
   `hari` varchar(10) NOT NULL,
   `created_dt` datetime DEFAULT NULL,
   `created_user` int(10) DEFAULT NULL,
@@ -737,10 +733,19 @@ CREATE TABLE `tb_japel` (
   `updated_user` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `tb_jad`
+--
+
+INSERT INTO `tb_jad` (`id_jadwal`, `id_ekskul`, `jam`, `starting_hour`, `finishing_hour`, `hari`, `created_dt`, `created_user`, `updated_dt`, `updated_user`) VALUES
+(2005191799, 2005040850, NULL, '09:00:00', '11:00:00', 'Senin', '2020-05-19 14:29:16', NULL, NULL, NULL),
+(2005193455, 2005040850, NULL, '08:00:00', '09:00:00', 'Senin', '2020-05-19 14:16:55', NULL, NULL, NULL),
+(2005197675, 2005040850, NULL, '08:00:00', '09:00:00', 'Selasa', '2020-05-19 14:21:20', NULL, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_kelas`
+-- Table structure for table `tb_kelas`
 --
 
 CREATE TABLE `tb_kelas` (
@@ -759,7 +764,7 @@ CREATE TABLE `tb_kelas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_kelas`
+-- Dumping data for table `tb_kelas`
 --
 
 INSERT INTO `tb_kelas` (`id_kelas`, `nama`, `kapasitas`, `proyektor`, `papan_tulis`, `komputer`, `ac`, `sound_system`, `created_dt`, `created_user`, `updated_dt`, `updated_user`) VALUES
@@ -768,7 +773,7 @@ INSERT INTO `tb_kelas` (`id_kelas`, `nama`, `kapasitas`, `proyektor`, `papan_tul
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_mapel`
+-- Table structure for table `tb_mapel`
 --
 
 CREATE TABLE `tb_mapel` (
@@ -781,7 +786,7 @@ CREATE TABLE `tb_mapel` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_mapel`
+-- Dumping data for table `tb_mapel`
 --
 
 INSERT INTO `tb_mapel` (`id_mapel`, `mapel`, `kategori`, `keterangan`, `created_dt`, `created_user`) VALUES
@@ -794,7 +799,7 @@ INSERT INTO `tb_mapel` (`id_mapel`, `mapel`, `kategori`, `keterangan`, `created_
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_ortu`
+-- Table structure for table `tb_ortu`
 --
 
 CREATE TABLE `tb_ortu` (
@@ -815,7 +820,7 @@ CREATE TABLE `tb_ortu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_ortu`
+-- Dumping data for table `tb_ortu`
 --
 
 INSERT INTO `tb_ortu` (`id`, `id_siswa`, `nama`, `status`, `tempat_lahir`, `tgl_lahir`, `alamat`, `id_provinsi`, `id_kota`, `kode_pos`, `created_dt`, `created_user`, `updated_dt`, `updated_user`) VALUES
@@ -828,7 +833,7 @@ INSERT INTO `tb_ortu` (`id`, `id_siswa`, `nama`, `status`, `tempat_lahir`, `tgl_
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_pel_ekskul`
+-- Table structure for table `tb_pel_ekskul`
 --
 
 CREATE TABLE `tb_pel_ekskul` (
@@ -838,7 +843,7 @@ CREATE TABLE `tb_pel_ekskul` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_pel_ekskul`
+-- Dumping data for table `tb_pel_ekskul`
 --
 
 INSERT INTO `tb_pel_ekskul` (`id_pel`, `id_user`, `id_ekskul`) VALUES
@@ -847,7 +852,7 @@ INSERT INTO `tb_pel_ekskul` (`id_pel`, `id_user`, `id_ekskul`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_poin`
+-- Table structure for table `tb_poin`
 --
 
 CREATE TABLE `tb_poin` (
@@ -860,7 +865,7 @@ CREATE TABLE `tb_poin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_poin`
+-- Dumping data for table `tb_poin`
 --
 
 INSERT INTO `tb_poin` (`id_poin`, `id_absen`, `id_guru`, `poin`, `status`, `created_dt`) VALUES
@@ -869,7 +874,7 @@ INSERT INTO `tb_poin` (`id_poin`, `id_absen`, `id_guru`, `poin`, `status`, `crea
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_siswa`
+-- Table structure for table `tb_siswa`
 --
 
 CREATE TABLE `tb_siswa` (
@@ -894,7 +899,7 @@ CREATE TABLE `tb_siswa` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_siswa`
+-- Dumping data for table `tb_siswa`
 --
 
 INSERT INTO `tb_siswa` (`id`, `nis`, `nipd`, `nisn`, `nama_siswa`, `id_kelas`, `jns_kel`, `alamat`, `id_provinsi`, `id_kota`, `kode_pos`, `images`, `tempat_lahir`, `tgl_lahir`, `created_dt`, `created_user`, `updated_dt`, `updated_user`) VALUES
@@ -903,7 +908,7 @@ INSERT INTO `tb_siswa` (`id`, `nis`, `nipd`, `nisn`, `nama_siswa`, `id_kelas`, `
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_user`
+-- Table structure for table `tb_user`
 --
 
 CREATE TABLE `tb_user` (
@@ -919,7 +924,7 @@ CREATE TABLE `tb_user` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_user`
+-- Dumping data for table `tb_user`
 --
 
 INSERT INTO `tb_user` (`id_user`, `emailVal`, `password`, `levelId`, `images`, `created_dt`, `created_user`, `updated_dt`, `updated_user`) VALUES
@@ -936,129 +941,122 @@ INSERT INTO `tb_user` (`id_user`, `emailVal`, `password`, `levelId`, `images`, `
 --
 
 --
--- Indeks untuk tabel `kota`
+-- Indexes for table `kota`
 --
 ALTER TABLE `kota`
   ADD PRIMARY KEY (`id_kota`),
   ADD KEY `regencies_province_id_index` (`id_provinsi`);
 
 --
--- Indeks untuk tabel `provinsi`
+-- Indexes for table `provinsi`
 --
 ALTER TABLE `provinsi`
   ADD PRIMARY KEY (`id_provinsi`);
 
 --
--- Indeks untuk tabel `tb_absen`
+-- Indexes for table `tb_absen`
 --
 ALTER TABLE `tb_absen`
   ADD PRIMARY KEY (`id_guru`,`id_jadwal`,`date`);
 
 --
--- Indeks untuk tabel `tb_ekskul`
+-- Indexes for table `tb_ekskul`
 --
 ALTER TABLE `tb_ekskul`
   ADD PRIMARY KEY (`id_ekskul`);
 
 --
--- Indeks untuk tabel `tb_guru`
+-- Indexes for table `tb_guru`
 --
 ALTER TABLE `tb_guru`
   ADD PRIMARY KEY (`id_guru`);
 
 --
--- Indeks untuk tabel `tb_hari`
+-- Indexes for table `tb_hari`
 --
 ALTER TABLE `tb_hari`
   ADD PRIMARY KEY (`id_hari`);
 
 --
--- Indeks untuk tabel `tb_japel`
+-- Indexes for table `tb_jad`
 --
-ALTER TABLE `tb_japel`
-  ADD PRIMARY KEY (`id_jadwal`,`id_mapel`,`id_guru`,`id_kelas`),
-  ADD KEY `idkelas` (`id_kelas`);
+ALTER TABLE `tb_jad`
+  ADD PRIMARY KEY (`id_jadwal`,`id_ekskul`);
 
 --
--- Indeks untuk tabel `tb_kelas`
+-- Indexes for table `tb_kelas`
 --
 ALTER TABLE `tb_kelas`
   ADD PRIMARY KEY (`id_kelas`),
   ADD KEY `idkelas` (`id_kelas`);
 
 --
--- Indeks untuk tabel `tb_mapel`
+-- Indexes for table `tb_mapel`
 --
 ALTER TABLE `tb_mapel`
   ADD PRIMARY KEY (`id_mapel`);
 
 --
--- Indeks untuk tabel `tb_ortu`
+-- Indexes for table `tb_ortu`
 --
 ALTER TABLE `tb_ortu`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `tb_pel_ekskul`
+-- Indexes for table `tb_pel_ekskul`
 --
 ALTER TABLE `tb_pel_ekskul`
   ADD PRIMARY KEY (`id_pel`);
 
 --
--- Indeks untuk tabel `tb_poin`
+-- Indexes for table `tb_poin`
 --
 ALTER TABLE `tb_poin`
   ADD PRIMARY KEY (`id_poin`);
 
 --
--- Indeks untuk tabel `tb_siswa`
+-- Indexes for table `tb_siswa`
 --
 ALTER TABLE `tb_siswa`
   ADD PRIMARY KEY (`id`,`nis`,`nipd`,`nisn`);
 
 --
--- Indeks untuk tabel `tb_user`
+-- Indexes for table `tb_user`
 --
 ALTER TABLE `tb_user`
   ADD PRIMARY KEY (`id_user`,`emailVal`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `tb_guru`
+-- AUTO_INCREMENT for table `tb_guru`
 --
 ALTER TABLE `tb_guru`
   MODIFY `id_guru` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2005056118;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_kelas`
+-- AUTO_INCREMENT for table `tb_kelas`
 --
 ALTER TABLE `tb_kelas`
   MODIFY `id_kelas` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2005037892;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_mapel`
+-- AUTO_INCREMENT for table `tb_mapel`
 --
 ALTER TABLE `tb_mapel`
   MODIFY `id_mapel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2001114072;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `kota`
+-- Constraints for table `kota`
 --
 ALTER TABLE `kota`
   ADD CONSTRAINT `regencies_province_id_foreign` FOREIGN KEY (`id_provinsi`) REFERENCES `provinsi` (`id_provinsi`);
-
---
--- Ketidakleluasaan untuk tabel `tb_japel`
---
-ALTER TABLE `tb_japel`
-  ADD CONSTRAINT `tb_japel_ibfk_1` FOREIGN KEY (`id_kelas`) REFERENCES `tb_kelas` (`id_kelas`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
