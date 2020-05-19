@@ -17,7 +17,7 @@ class DashboardController extends Controller
        GROUP BY id_guru
     ) b GROUP BY kehadiran";
     $totalGuru = Guru::count();
-    $dataAbsen = collect(\DB::select($queryAbsen))->first();;
+    $dataAbsen = collect(\DB::select($queryAbsen))->first();
     //return view('page.dashboard',compact('dataAbsen','totalGuru'));
 		return view('page.dashboard');
 	}

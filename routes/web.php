@@ -56,7 +56,7 @@ Route::post('/editMapel','MapelController@editMapel');
 /*Routing Mata Jadwal*/
 Route::get('/jadwalPelajaran','JapelController@index');
 Route::get('/jadwalPelajaran/getDetail','JapelController@getDetail');
-Route::post('/tambahJapel','JapelController@tambahJapel');
+Route::post('/tambahJadwal','JapelController@tambahJadwal');
 Route::post('/editJapel','JapelController@editJapel');
 
 Route::get('/getKota','KotaController@getKota');

@@ -9,7 +9,7 @@ use Session;
 class Japel extends Model
 {
 
-    protected $table = "tb_japel";
+    protected $table = "tb_jad";
     public $timestamps = false;
     public static function generateId ()
     {
@@ -23,14 +23,9 @@ class Japel extends Model
     public static function validateForm($data)
     {
       $formValidate = [
-        "id_mapel"=>'required',
-        "id_guru"=>'required',
-        "id_kelas"=>'required',
-        "jurusan"=>'required',
-        "jenjang"=>'required',
+        "id_ekskul"=>'required',
         "starting_hour"=>'required',
         "finishing_hour"=>'required',
-        "jam"=>'required',
         "hari"=>'required'
       ];
       $validator = Validator::make($data,$formValidate );
@@ -48,6 +43,13 @@ class Japel extends Model
         $data["created_dt"]=date("Y-m-d H:i:s");
         $data["created_user"]=SESSION::get('userData')['userData']['user_id'];
         //dd(self::insert($data));
+        if ($data['finishing_hour']<$data['starting_hour']) {
+          return ["error"=>"003","message"=>"Jam Mulai Tidak Boleh Lebih Besar dari Jam Berakhir"];
+        }
+        $queryExist = "SELECT * FROM tb_jad WHERE hari='Senin' AND '".$data['starting_hour']."' BETWEEN starting_hour AND finishing_hour";
+        if(collect(\DB::select($queryExist))->count()>0){
+          return ["error"=>"004","message"=>"Jadwal Sudah Tersedia"];
+        }
         if (self::insert($data)) {
           return ["error"=>false,"message"=>"Tambah Jadwal Pelajaran Berhasil"];
         }

@@ -32,18 +32,12 @@ class JapelController extends Controller
       return view('page.jadwalPelajaran',compact('dataMapel','dataKelas','dataGuru','dataJapel'));
     }
 
-    public function tambahJapel(Request $req)
+    public function tambahJadwal(Request $req)
     {
-      $explode = explode('|',$req->id_kelas);
       $data = [
-        "id_mapel"=>$req->id_mapel,
-        "id_guru"=>$req->id_guru,
-        "id_kelas"=>$explode[0],
-        "jurusan"=>explode("-",$explode[1])[1],
-        "jenjang"=>explode("-",$explode[1])[0],
-        "jam"=>$req->jam,
-        "starting_hour"=>$this->jam[$req->jam]['start'],
-        "finishing_hour"=>$this->jam[$req->jam]['end'],
+        "id_ekskul"=>$req->id_ekskul,
+        "starting_hour"=>$req->starting_hour,
+        "finishing_hour"=>$req->finishing_hour,
         "hari"=>$req->hari
       ];
       return redirect()->back()->with(Japel::insertData($data));
