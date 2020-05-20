@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2020 at 10:27 AM
+-- Generation Time: May 20, 2020 at 05:31 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.1.33
 
@@ -653,7 +653,8 @@ CREATE TABLE `tb_ekskul` (
 --
 
 INSERT INTO `tb_ekskul` (`id_ekskul`, `nama`, `alamat`, `telepon`, `tgl_gabung`, `created_dt`, `created_user`, `updated_dt`, `updated_user`) VALUES
-(2005040850, 'Pencak Silat', 'ajdflkajdlf', '294800', '2020-05-04 00:00:00', '2020-05-04 17:05:40', NULL, NULL, NULL);
+(2005040850, 'Pencak Silat', 'ajdflkajdlf', '294800', '2020-05-04 00:00:00', '2020-05-04 17:05:40', NULL, NULL, NULL),
+(2005209163, 'Futsal', 'SMP Al Itijhad', '55487223', '2020-05-20 00:00:00', '2020-05-20 10:18:48', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -768,33 +769,33 @@ CREATE TABLE `tb_kelas` (
 --
 
 INSERT INTO `tb_kelas` (`id_kelas`, `nama`, `kapasitas`, `proyektor`, `papan_tulis`, `komputer`, `ac`, `sound_system`, `created_dt`, `created_user`, `updated_dt`, `updated_user`) VALUES
-(2005037891, 'VII-A', 40, 'on', 'on', 'on', 'on', NULL, '2020-05-03', NULL, '2020-05-03', NULL);
+(2005037891, 'VII-A', 40, 'on', 'on', 'on', 'on', NULL, '2020-05-03', NULL, '2020-05-03', NULL),
+(2005209100, 'VII-B', 40, NULL, 'on', 'on', 'on', NULL, '2020-05-20', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_mapel`
+-- Table structure for table `tb_member_ekskul`
 --
 
-CREATE TABLE `tb_mapel` (
-  `id_mapel` int(11) NOT NULL,
-  `mapel` varchar(50) NOT NULL,
-  `kategori` char(5) DEFAULT NULL,
-  `keterangan` varchar(5) DEFAULT NULL,
-  `created_dt` date DEFAULT NULL,
-  `created_user` int(10) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `tb_member_ekskul` (
+  `id_member` int(10) NOT NULL,
+  `id_siswa` int(10) NOT NULL,
+  `id_ekskul` int(10) NOT NULL,
+  `created_dt` datetime DEFAULT NULL,
+  `created_user` int(10) DEFAULT NULL,
+  `updated_dt` datetime DEFAULT NULL,
+  `updated_user` int(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tb_mapel`
+-- Dumping data for table `tb_member_ekskul`
 --
 
-INSERT INTO `tb_mapel` (`id_mapel`, `mapel`, `kategori`, `keterangan`, `created_dt`, `created_user`) VALUES
-(1911093921, 'Matematika', 'UMUM', NULL, '2019-11-09', NULL),
-(1911096667, 'Bahasa Indonesia', 'UMUM', NULL, '2019-11-09', NULL),
-(1911308345, 'Bahasa Inggris', 'UMUM', NULL, '2019-11-30', NULL),
-(1912263498, 'Bahasa Indonesia', 'IPS', NULL, '2019-12-26', NULL),
-(2001114071, 'Komputer', 'UMUM', NULL, '2020-01-11', 1911300286);
+INSERT INTO `tb_member_ekskul` (`id_member`, `id_siswa`, `id_ekskul`, `created_dt`, `created_user`, `updated_dt`, `updated_user`) VALUES
+(2005200314, 2005207388, 2005040850, '2020-05-20 09:26:35', NULL, NULL, NULL),
+(2005201323, 2005031665, 2005209163, '2020-05-20 10:30:22', NULL, NULL, NULL),
+(2005207286, 2005205175, 2005040850, '2020-05-20 10:29:57', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -852,28 +853,6 @@ INSERT INTO `tb_pel_ekskul` (`id_pel`, `id_user`, `id_ekskul`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_poin`
---
-
-CREATE TABLE `tb_poin` (
-  `id_poin` int(10) NOT NULL,
-  `id_absen` int(10) DEFAULT NULL,
-  `id_guru` int(10) DEFAULT NULL,
-  `poin` int(3) DEFAULT NULL,
-  `status` char(1) DEFAULT NULL,
-  `created_dt` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `tb_poin`
---
-
-INSERT INTO `tb_poin` (`id_poin`, `id_absen`, `id_guru`, `poin`, `status`, `created_dt`) VALUES
-(2001188241, 2001183271, 2001184491, 100, '1', '2020-01-18 07:01:44');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `tb_siswa`
 --
 
@@ -903,7 +882,10 @@ CREATE TABLE `tb_siswa` (
 --
 
 INSERT INTO `tb_siswa` (`id`, `nis`, `nipd`, `nisn`, `nama_siswa`, `id_kelas`, `jns_kel`, `alamat`, `id_provinsi`, `id_kota`, `kode_pos`, `images`, `tempat_lahir`, `tgl_lahir`, `created_dt`, `created_user`, `updated_dt`, `updated_user`) VALUES
-(2005031665, 111111, 111111, 111111, 'Mursalat Asyidiq', 2005037891, 'L', 'sssssss', 36, 3671, 1232445, NULL, 'Tangerang', '2020-05-28', '2020-05-03', NULL, NULL, NULL);
+(2005031665, 111111, 111111, 111111, 'Mursalat Asyidiq', 2005037891, 'L', 'sssssss', 36, 3671, 1232445, NULL, 'Tangerang', '2020-05-28', '2020-05-03', NULL, NULL, NULL),
+(2005205175, 32145, 23451, 23451, 'Udin Saipudin', 2005209100, 'L', 'Tangerang Selatan', 36, 3674, 14564, NULL, 'Tangerang', '1999-03-10', '2020-05-20', NULL, NULL, NULL),
+(2005206625, 111113, 123445, 234562, 'Bambang', 2005209100, 'L', 'Tangerang', 36, 3671, 12356, NULL, 'Jakarta', '1999-02-09', '2020-05-20', NULL, NULL, NULL),
+(2005207388, 43235, 34245, 34532, 'Uda Minang', 2005209100, 'L', 'Cilegon', 36, 3672, 13411, NULL, 'Tangerang', '1999-04-14', '2020-05-20', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -991,10 +973,10 @@ ALTER TABLE `tb_kelas`
   ADD KEY `idkelas` (`id_kelas`);
 
 --
--- Indexes for table `tb_mapel`
+-- Indexes for table `tb_member_ekskul`
 --
-ALTER TABLE `tb_mapel`
-  ADD PRIMARY KEY (`id_mapel`);
+ALTER TABLE `tb_member_ekskul`
+  ADD PRIMARY KEY (`id_member`);
 
 --
 -- Indexes for table `tb_ortu`
@@ -1007,12 +989,6 @@ ALTER TABLE `tb_ortu`
 --
 ALTER TABLE `tb_pel_ekskul`
   ADD PRIMARY KEY (`id_pel`);
-
---
--- Indexes for table `tb_poin`
---
-ALTER TABLE `tb_poin`
-  ADD PRIMARY KEY (`id_poin`);
 
 --
 -- Indexes for table `tb_siswa`
@@ -1040,13 +1016,7 @@ ALTER TABLE `tb_guru`
 -- AUTO_INCREMENT for table `tb_kelas`
 --
 ALTER TABLE `tb_kelas`
-  MODIFY `id_kelas` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2005037892;
-
---
--- AUTO_INCREMENT for table `tb_mapel`
---
-ALTER TABLE `tb_mapel`
-  MODIFY `id_mapel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2001114072;
+  MODIFY `id_kelas` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2005209101;
 
 --
 -- Constraints for dumped tables
