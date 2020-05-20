@@ -48,6 +48,7 @@ Route::get('/detailEkskul','EkskulController@detailEkskul');
 Route::get('/anggotaEkskul','EkskulController@anggotaEkskul');
 Route::post('/tambahPelatih','EkskulController@tambahPelatih');
 Route::get('/anggotaEkskul','EkskulController@anggotaEkskul');
+Route::post('/tambahAnggota','EkskulController@tambahAnggota');
 
 /*Routing Mata Pelajaran*/
 Route::get('/mataPelajaran','MapelController@index');

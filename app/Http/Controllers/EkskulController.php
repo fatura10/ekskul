@@ -7,6 +7,8 @@ use App\Ekskul;
 use App\Pelatih;
 use App\Japel;
 use App\Kelas;
+use App\MemberEkskul;
+use DB;
 
 class EkskulController extends Controller
 {
@@ -28,7 +30,22 @@ class EkskulController extends Controller
     {
       $dataEkskul = Ekskul::where('id_ekskul',$req->input('id_ekskul'))->first();
       $dataKelas = Kelas::get();
-      return view('page.anggotaEkskul',compact('dataEkskul','dataKelas'));
+      $queryEkskul = "SELECT id_member, b.`nama_siswa`, b.`tempat_lahir`, b.`tgl_lahir`,b.`alamat`, c.`nama`
+        FROM tb_member_ekskul a
+        JOIN tb_siswa b ON a.`id_siswa` = b.`id`
+        JOIN tb_kelas c ON c.`id_kelas` = b.`id_kelas`
+        WHERE a.id_ekskul='".$req->input('id_ekskul')."'";
+      $dataAnggota = DB::select($queryEkskul);
+      return view('page.anggotaEkskul',compact('dataEkskul','dataKelas','dataAnggota'));
+    }
+
+    public function tambahAnggota(Request $req)
+    {
+      $insertData = [
+        "id_ekskul"=>$req->id_ekskul,
+        "id_siswa"=>$req->id_siswa
+      ];
+      return redirect()->back()->with(MemberEkskul::insertData($insertData));
     }
 
     public function tambahPelatih(Request $req)

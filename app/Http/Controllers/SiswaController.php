@@ -8,6 +8,7 @@ use App\Kelas;
 use App\Provinsi;
 use App\Kota;
 use App\Ortu;
+use DB;
 
 class SiswaController extends Controller
 {
@@ -63,7 +64,12 @@ class SiswaController extends Controller
 
     public function getList(Request $req)
     {
-      $dataEkskul = Siswa::where('nama_siswa', 'like', $req->input('nama').'%')->where('id_kelas',$req->input('kelas'))->get();
+      $queryEkskul = "SELECT a.* FROM tb_siswa a
+        LEFT JOIN tb_member_ekskul b ON a.id = b.id_siswa AND b.id_ekskul = '".$req->input('id_ekskul')."'
+        WHERE id_kelas='".$req->input('id_kelas')."' AND a.nama_siswa like '".$req->input('nama')."%'AND IFNULL(b.id_siswa,'') = ''";
+        //var_dump($queryEkskul);die;
+      $dataEkskul =  DB::select($queryEkskul);
+
       return response()->json($dataEkskul);
     }
 
