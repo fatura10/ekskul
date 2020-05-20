@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 20, 2020 at 05:31 AM
+-- Generation Time: May 20, 2020 at 08:35 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.1.33
 
@@ -689,7 +689,8 @@ CREATE TABLE `tb_guru` (
 
 INSERT INTO `tb_guru` (`id_guru`, `nama_guru`, `nip`, `jns_kel`, `alamat`, `id_provinsi`, `id_kota`, `kode_pos`, `email`, `telepon`, `tempat_lahir`, `tgl_lahir`, `agama`, `foto`, `created_dt`, `created_user`, `updated_dt`, `updated_user`) VALUES
 (2005056117, 'Bambang Pamungkas', '1122342', 'L', 'jsdlfladjf', 36, 3671, 11228, 'bambang.pamungkas@gmail.com', '11223344', 'Tangerang', '2020-05-29', '1', NULL, '2020-05-05', NULL, NULL, NULL),
-(2005045337, 'Bambang', '112233', 'L', 'asdsd', 36, 3671, 11233, 'bambang@alitijhad.com', '1234567', 'Tangerang', '2020-05-20', '1', NULL, '2020-05-04', NULL, NULL, NULL);
+(2005045337, 'Bambang', '112233', 'L', 'asdsd', 36, 3671, 11233, 'bambang@alitijhad.com', '1234567', 'Tangerang', '2020-05-20', '1', NULL, '2020-05-04', NULL, NULL, NULL),
+(2005056118, 'Mursalat Asyidiq', '1122342', 'L', 'jsdlfladjf', 36, 3671, 11228, 'mursalat@raharja.info', '11223344', 'Tangerang', '2020-05-29', '1', NULL, '2020-05-05', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -741,7 +742,8 @@ CREATE TABLE `tb_jad` (
 INSERT INTO `tb_jad` (`id_jadwal`, `id_ekskul`, `jam`, `starting_hour`, `finishing_hour`, `hari`, `created_dt`, `created_user`, `updated_dt`, `updated_user`) VALUES
 (2005191799, 2005040850, NULL, '09:00:00', '11:00:00', 'Senin', '2020-05-19 14:29:16', NULL, NULL, NULL),
 (2005193455, 2005040850, NULL, '08:00:00', '09:00:00', 'Senin', '2020-05-19 14:16:55', NULL, NULL, NULL),
-(2005197675, 2005040850, NULL, '08:00:00', '09:00:00', 'Selasa', '2020-05-19 14:21:20', NULL, NULL, NULL);
+(2005197675, 2005040850, NULL, '08:00:00', '09:00:00', 'Selasa', '2020-05-19 14:21:20', NULL, NULL, NULL),
+(2005201008, 2005209163, NULL, '08:00:00', '09:00:00', 'Rabu', '2020-05-20 13:03:03', 2005056117, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -795,7 +797,14 @@ CREATE TABLE `tb_member_ekskul` (
 INSERT INTO `tb_member_ekskul` (`id_member`, `id_siswa`, `id_ekskul`, `created_dt`, `created_user`, `updated_dt`, `updated_user`) VALUES
 (2005200314, 2005207388, 2005040850, '2020-05-20 09:26:35', NULL, NULL, NULL),
 (2005201323, 2005031665, 2005209163, '2020-05-20 10:30:22', NULL, NULL, NULL),
-(2005207286, 2005205175, 2005040850, '2020-05-20 10:29:57', NULL, NULL, NULL);
+(2005201929, 2005031665, 2005040850, '2020-05-20 10:38:25', NULL, NULL, NULL),
+(2005203107, 2005208469, 2005040850, '2020-05-20 10:38:33', NULL, NULL, NULL),
+(2005203384, 2005206625, 2005209163, '2020-05-20 10:37:53', NULL, NULL, NULL),
+(2005205384, 2005202377, 2005209163, '2020-05-20 10:37:28', NULL, NULL, NULL),
+(2005206137, 2005202377, 2005040850, '2020-05-20 10:38:12', NULL, NULL, NULL),
+(2005207167, 2005206720, 2005209163, '2020-05-20 10:37:36', NULL, NULL, NULL),
+(2005207286, 2005205175, 2005040850, '2020-05-20 10:29:57', NULL, NULL, NULL),
+(2005208658, 2005208469, 2005209163, '2020-05-20 10:37:45', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -848,7 +857,8 @@ CREATE TABLE `tb_pel_ekskul` (
 --
 
 INSERT INTO `tb_pel_ekskul` (`id_pel`, `id_user`, `id_ekskul`) VALUES
-(2005056830, 2005056117, 2005040850);
+(2005056830, 2005056117, 2005040850),
+(2005204026, 2005056117, 2005209163);
 
 -- --------------------------------------------------------
 
@@ -883,9 +893,12 @@ CREATE TABLE `tb_siswa` (
 
 INSERT INTO `tb_siswa` (`id`, `nis`, `nipd`, `nisn`, `nama_siswa`, `id_kelas`, `jns_kel`, `alamat`, `id_provinsi`, `id_kota`, `kode_pos`, `images`, `tempat_lahir`, `tgl_lahir`, `created_dt`, `created_user`, `updated_dt`, `updated_user`) VALUES
 (2005031665, 111111, 111111, 111111, 'Mursalat Asyidiq', 2005037891, 'L', 'sssssss', 36, 3671, 1232445, NULL, 'Tangerang', '2020-05-28', '2020-05-03', NULL, NULL, NULL),
+(2005202377, 12323, 1223, 133, 'Yoga', 2005037891, 'L', 'Jl. Jalan', 36, 3671, 124, NULL, 'Tangerang', '2020-05-02', '2020-05-20', NULL, NULL, NULL),
 (2005205175, 32145, 23451, 23451, 'Udin Saipudin', 2005209100, 'L', 'Tangerang Selatan', 36, 3674, 14564, NULL, 'Tangerang', '1999-03-10', '2020-05-20', NULL, NULL, NULL),
 (2005206625, 111113, 123445, 234562, 'Bambang', 2005209100, 'L', 'Tangerang', 36, 3671, 12356, NULL, 'Jakarta', '1999-02-09', '2020-05-20', NULL, NULL, NULL),
-(2005207388, 43235, 34245, 34532, 'Uda Minang', 2005209100, 'L', 'Cilegon', 36, 3672, 13411, NULL, 'Tangerang', '1999-04-14', '2020-05-20', NULL, NULL, NULL);
+(2005206720, 4343243, 543543, 34132, 'Yulianti', 2005037891, 'P', 'Jl. Julianti', 36, 3674, 3131234, NULL, 'Jakarta', '2020-05-15', '2020-05-20', NULL, NULL, NULL),
+(2005207388, 43235, 34245, 34532, 'Uda Minang', 2005209100, 'L', 'Cilegon', 36, 3672, 13411, NULL, 'Tangerang', '1999-04-14', '2020-05-20', NULL, NULL, NULL),
+(2005208469, 3432, 23431, 1233, 'Yeni', 2005037891, 'P', 'Jl. Jalan', 36, 3671, 23423, NULL, 'Tangerang', '2020-05-02', '2020-05-20', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -911,10 +924,6 @@ CREATE TABLE `tb_user` (
 
 INSERT INTO `tb_user` (`id_user`, `emailVal`, `password`, `levelId`, `images`, `created_dt`, `created_user`, `updated_dt`, `updated_user`) VALUES
 (1911300286, 'admin@salat.id', '$2y$12$6iX9bFkj1c11qlfWtqZZA.WIj7w/8YffQpx/wH0EtBco4/Jh2kl36', 1, NULL, '2020-01-04 13:08:59', NULL, NULL, NULL),
-(2001116110, 'welly@raharja.info', '$2y$10$r40a0czp4.VoiVNDNQpQpelvY7GTY0QF0lbJ9e0Roh.Sho7hzQTcW', 2, NULL, '2020-01-11 12:58:47', '1911300286', NULL, NULL),
-(2001184491, 'mursalat@raharja.info', '$2y$10$664NtRtFyoWmbY0OdyfI6Obsn47BG9.3IZwCvSz5fb45b0Wk0YPYK', 2, NULL, '2020-01-18 06:15:31', '1911300286', NULL, NULL),
-(2001189726, 'bambang@alitijhad.com', '$2y$10$hHyXSVfxKZfgslh14DZW/./tLRx4OrZCd1LY5jAbHqGvDyELCFKNK', 2, NULL, '2020-01-18 18:08:07', NULL, NULL, NULL),
-(2001183186, 'bambang@alitijhad.com', '$2y$10$mtJmgGUAIRQuWTcOfSZz6uBOkQRhb/a/GEAtOIT46xKYsJ/Lu0PdW', 2, NULL, '2020-01-18 18:12:58', NULL, NULL, NULL),
 (2005045337, 'bambang@alitijhad.com', '$2y$10$G.6GVZ.7.veGIv9zqfNgtuKxfalYXyKsRMdi4g5thIvBCeuf9VOWi', 2, NULL, '2020-05-04 16:44:01', NULL, NULL, NULL),
 (2005056117, 'bambang.pamungkas@gmail.com', '$2y$10$nXIJ63waByggzPTOItBUdOQCWGDfzDsNqpAY3QIQhZsSq9Z2nwb2i', 2, NULL, '2020-05-05 20:36:51', NULL, NULL, NULL);
 
@@ -1010,7 +1019,7 @@ ALTER TABLE `tb_user`
 -- AUTO_INCREMENT for table `tb_guru`
 --
 ALTER TABLE `tb_guru`
-  MODIFY `id_guru` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2005056118;
+  MODIFY `id_guru` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2005056119;
 
 --
 -- AUTO_INCREMENT for table `tb_kelas`
