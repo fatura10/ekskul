@@ -52,7 +52,7 @@ class Kelas extends Model
   {
     if (self::validateForm($data)) {
       $data["updated_dt"]=date("Y-m-d H:i:s");
-      $data["updated_user"]=SESSION::get('userData')['userData']['id'];
+      $data["updated_user"]=SESSION::get('userData')['userData']['user_id'];
       //dd(self::insert($data));
       if (self::where('id_kelas',$id)->update($data)) {
         return ["error"=>false,"message"=>"Edit Kelas Berhasil"];

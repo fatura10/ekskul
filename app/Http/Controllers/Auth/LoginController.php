@@ -70,9 +70,9 @@ class LoginController extends Controller
           ];
           //dd($sessionValue);
           Session::put("userData",$sessionValue);
-          if ($dataLogin->levelId==2) {
-            return redirect('/indexGuru');
-          }
+          // if ($dataLogin->levelId==2) {
+          //   return redirect('/indexGuru');
+          // }
           return redirect('/dashboard');
       }
       return redirect('/')->with(["error"=>"001","message"=>"Password atau Username Salah"]);

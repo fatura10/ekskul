@@ -41,8 +41,10 @@ Route::get('/guru/getList','GuruController@getList');
 
 /*Router Ekskul*/
 Route::get('/ekskul','EkskulController@index');
-Route::get('/absenEkskul','EkskulController@absenEkskul');
-Route::get('/nilaiEkskul','EkskulController@nilaiEkskul');
+Route::get('/ekskul/absen','EkskulController@absenEkskul');
+Route::get('/absenEkskul','EkskulController@absen');
+Route::get('/ekskul/nilai','EkskulController@nilaiEkskul');
+Route::get('/nilaiEkskul','EkskulController@nilai');
 Route::post('/tambahEkskul','EkskulController@tambahEkskul');
 Route::get('/detailEkskul','EkskulController@detailEkskul');
 Route::get('/anggotaEkskul','EkskulController@anggotaEkskul');

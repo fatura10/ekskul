@@ -9,10 +9,10 @@
             <nav>
                 <ul class="metismenu" id="menu">
                     <li><a href="/dashboard"><i class="ti-receipt"></i> <span>Dashboard</span></a></li>
-                    <li class="active">
+                    <li>
                         <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Master</span></a>
                         <ul class="collapse">
-                            <li class="active"><a href="/siswa">Siswa</a></li>
+                            <li><a href="/siswa">Siswa</a></li>
                             <li><a href="/kelas">Kelas</a></li>
                             <li><a href="/guru">Guru</a></li>
                             <li><a href="/ekskul">Ekskul</a></li>
@@ -21,8 +21,8 @@
                     <li>
                         <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Ekskul</span></a>
                         <ul class="collapse">
-                            <li class="active"><a href="/absenEkskul">Absen</a></li>
-                            <li><a href="/nilaiEkskul">Nilai</a></li>
+                            <li><a href="/ekskul/absen">Absen</a></li>
+                            <li><a href="/ekskul/nilai">Nilai</a></li>
                         </ul>
                     </li>
                     <li>
