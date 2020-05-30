@@ -30,6 +30,7 @@ class Absen extends Model
   public static function validateForm($data)
   {
     $formValidate = [
+      'id_siswa' => 'required',
       'id_guru' => 'required',
       'id_jadwal' => 'required',
     ];
@@ -50,29 +51,7 @@ class Absen extends Model
       $data["created_dt"]=date("Y-m-d H:i:s");
       //dd(self::insert($data));
       if (self::insert($data)) {
-        $startTime = new DateTime($starting);
-        $endTime = new DateTime($data["absen_in"]);
-        $duration = $startTime->diff($endTime); //$duration is a DateInterval object
-        $selisih = self::time_to_decimal($duration->format("%H:%I:%S"));
-        if ($selisih<5) {
-          $poin=100;
-        } elseif ($selisih>5 && $selisih<15) {
-          $poin=90;
-        } else {
-          $poin=0;
-        }
-        $dataPoin = [
-          "id_poin"=>Poin::generateId(),
-          "id_guru"=>$data['id_guru'],
-          "id_absen"=>$data["id_absen"],
-          "poin"=>$poin,
-          "status"=>1,
-          "created_dt"=>$data["created_dt"]
-        ];
-        if (Poin::insert($dataPoin)) {
-          return ["error"=>false,"message"=>"Simpan Absen Berhasil","params"=>["id_absen"=>$data["id_absen"],"poin"=>$poin]];
-        }
-
+        return ["error"=>false,"message"=>"Simpan Absen Berhasil","params"=>["id_absen"=>$data["id_absen"],"poin"=>$poin]];
       }
       return ["error"=>"001","message"=>"Simpan Absen Gagal"];
     }
