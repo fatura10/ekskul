@@ -29,7 +29,7 @@ class EkskulController extends Controller
 
     public function dataAnggota ($id_ekskul)
     {
-      $queryEkskul = "SELECT id_member, b.`nama_siswa`, b.`tempat_lahir`, b.`tgl_lahir`,b.`alamat`, c.`nama`
+      $queryEkskul = "SELECT id_member, b.`nama_siswa`, b.`tempat_lahir`, b.`tgl_lahir`,b.`alamat`, c.`nama`,b.id
         FROM tb_member_ekskul a
         JOIN tb_siswa b ON a.`id_siswa` = b.`id`
         JOIN tb_kelas c ON c.`id_kelas` = b.`id_kelas`
@@ -40,7 +40,7 @@ class EkskulController extends Controller
 
     public function getDataEkskul()
     {
-      $dataEkskul = Ekskul::select('tb_ekskul.*','b.hari','b.starting_hour','b.finishing_hour')
+      $dataEkskul = Ekskul::select('tb_ekskul.*','b.hari','b.starting_hour','b.finishing_hour','b.id_jadwal')
                             ->join('tb_pel_ekskul as a','a.id_ekskul','tb_ekskul.id_ekskul')
                             ->join('tb_jad as b','b.id_ekskul','tb_ekskul.id_ekskul')
                             ->where('a.id_user',SESSION::get('userData')['userData']['user_id'])
@@ -48,11 +48,11 @@ class EkskulController extends Controller
       return $dataEkskul;
     }
 
-    public function getDataAnggota($id_ekskul)
+    public function getDataAnggota($id_jad)
     {
-      $dataEkskul = $dataEkskul = Ekskul::select('tb_ekskul.*','b.hari','b.starting_hour','b.finishing_hour')
+      $dataEkskul = $dataEkskul = Ekskul::select('tb_ekskul.*','b.hari','b.starting_hour','b.finishing_hour','b.id_jadwal')
                     ->join('tb_jad as b','b.id_ekskul','tb_ekskul.id_ekskul')
-                    ->where('tb_ekskul.id_ekskul',$id_ekskul)
+                    ->where('b.id_jadwal',$id_jad)
                     ->first();
       return $dataEkskul;
     }
@@ -99,9 +99,10 @@ class EkskulController extends Controller
 
     public function absen (Request $req)
     {
-      $dataEkskul = $this->getDataAnggota($req->input('id_ekskul'));
+      $dataEkskul = $this->getDataAnggota($req->input('id_jad'));
       $dataAbsen = $this->dataAnggota($req->input('id_ekskul'));
-      return view('page.absen',compact('dataAbsen','dataEkskul'));
+      $id_pel = SESSION::get('userData')['userData']['user_id'];
+      return view('page.absen',compact('dataAbsen','dataEkskul','id_pel'));
     }
 
     public function nilai (Request $req)

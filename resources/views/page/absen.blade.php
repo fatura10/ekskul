@@ -49,7 +49,7 @@
                             <td class="text-center">{{$data->nama_siswa}}</td>
                             <td class="text-center">{{$data->nama}}</td>
                             <td class="text-center">
-                              <a href="#" class="btn btn-success">Hadir</a>
+                              <a href="#" data-idsiswa="{{$data->id}}" data-idjadwal="{{$dataEkskul->id_jadwal}}" data-idguru="{{$id_pel}}" class="btn btn-success">Hadir</a>
                             </td>
                         @endforeach
                       </tbody>

@@ -37,7 +37,7 @@
                               <td class="text-center">{{$data->nama}}</td>
                               <td class="text-center">{{$data->hari}}, {{$data->starting_hour}} s.d {{$data->finishing_hour}}</td>
                               <td class="text-center">
-                                <a href="/{{$status=='absen'?'absenEkskul':'nilaiEkskul'}}?id_ekskul={{$data->id_ekskul}}" class="btn btn-success">{{$status=='absen'?'Absen':'Nilai'}}</a>
+                                <a href="/{{$status=='absen'?'absenEkskul':'nilaiEkskul'}}?id_jad={{$data->id_jadwal}}&id_ekskul={{$data->id_ekskul}}" class="btn btn-success">{{$status=='absen'?'Absen':'Nilai'}}</a>
                               </td>
                           @endforeach
                         </tbody>

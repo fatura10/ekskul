@@ -71,6 +71,7 @@ Route::get('/indexGuru','GuruController@indexGuru');
 
 /*Routing Absen*/
 Route::get('/absen','AbsenController@index');
+Route::post('/absen/in','AbsenController@absenIn');
 
 
 
