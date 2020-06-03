@@ -49,7 +49,11 @@
                             <td class="text-center">{{$data->nama_siswa}}</td>
                             <td class="text-center">{{$data->nama}}</td>
                             <td class="text-center">
-                              <a href="#" data-idsiswa="{{$data->id}}" data-idjadwal="{{$dataEkskul->id_jadwal}}" data-idguru="{{$id_pel}}" class="btn btn-success">Hadir</a>
+                              <a href="#" data-status="{{$data->status}}" data-idsiswa="{{$data->id}}" data-idjadwal="{{$dataEkskul->id_jadwal}}"
+                                data-idpel="{{$id_pel}}" data-idabsen="{{$data->id_absen}}"
+                                class="btn {{$data->status==0?'btn-success':'btn-danger'}} btn-hadir">
+                                {{$data->status==0?"Hadir":"Tidak Hadir"}}
+                              </a>
                             </td>
                         @endforeach
                       </tbody>
@@ -60,7 +64,65 @@
     </div>
     <!-- ============================================================== -->
     <!-- end recent orders  -->
-
-
 </div>
+<script type="text/javascript">
+  $('.btn-hadir').click(function(){
+    var btnHadir = $(this)
+    data = {
+      id_siswa : $(this).data('idsiswa'),
+      id_jadwal : $(this).data('idjadwal'),
+      id_pel : $(this).data('idpel'),
+      id_absen : $(this).data('idabsen'),
+      status : $(this).data('status')
+    }
+    if (data.id_absen!="") {
+      $.ajax({
+        type: "POST",
+        url: '/api/absen/out',
+        data: data,
+        success: function(res){
+          console.log(res);
+          if (res.error) {
+            alert(res.message)
+            return
+          }
+          if (btnHadir.hasClass('btn-success')) {
+            btnHadir.text('Tidak Hadir')
+            btnHadir.data('status',res.params.status)
+            btnHadir.removeClass('btn-success').addClass('btn-danger')
+          } else {
+            btnHadir.text('Hadir')
+            btnHadir.data('status',res.params.status)
+            btnHadir.removeClass('btn-danger').addClass('btn-success')
+          }
+
+        }
+      });
+    } else {
+      $.ajax({
+        type: "POST",
+        url: '/api/absen/in',
+        data: data,
+        success: function(res){
+          console.log(res);
+          if (res.error) {
+            alert(res.message)
+            return
+          }
+          if (btnHadir.hasClass('btn-success')) {
+            btnHadir.text('Tidak Hadir')
+            btnHadir.data('idabsen',res.params.id_absen)
+            btnHadir.data('status',res.params.status)
+            btnHadir.removeClass('btn-success').addClass('btn-danger')
+          } else {
+            btnHadir.text('Hadir')
+            btnHadir.removeClass('btn-danger').addClass('btn-success')
+          }
+
+        }
+      });
+    }
+
+  })
+</script>
 @endsection

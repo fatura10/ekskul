@@ -31,7 +31,7 @@ class Absen extends Model
   {
     $formValidate = [
       'id_siswa' => 'required',
-      'id_guru' => 'required',
+      'id_pel' => 'required',
       'id_jadwal' => 'required',
     ];
     $validator = Validator::make($data,$formValidate );
@@ -42,16 +42,17 @@ class Absen extends Model
     return true;
   }
 
-  public static function insertData($data,$starting)
+  public static function insertData($data)
   {
     if (self::validateForm($data)) {
       $data["id_absen"]=self::generateId();
-      $data["absen_in"]=date("Y-m-d H:i:s");
+      $data["absen_time"]=date("Y-m-d H:i:s");
+      $data["status"]=1;
       $data["date"]=date("Y-m-d");
       $data["created_dt"]=date("Y-m-d H:i:s");
       //dd(self::insert($data));
       if (self::insert($data)) {
-        return ["error"=>false,"message"=>"Simpan Absen Berhasil","params"=>["id_absen"=>$data["id_absen"],"poin"=>$poin]];
+        return ["error"=>false,"message"=>"Simpan Absen Berhasil","params"=>["id_absen"=>$data["id_absen"],"status"=>$data["status"]]];
       }
       return ["error"=>"001","message"=>"Simpan Absen Gagal"];
     }
@@ -62,10 +63,11 @@ class Absen extends Model
   {
     //if (self::validateForm($data)) {
       //dd(self::insert($data));
+      $data["absen_time"]=date("Y-m-d H:i:s");
       if (self::where('id_absen',$id)->update($data)) {
-        return ["error"=>false,"message"=>"Edit Guru Berhasil"];
+        return ["error"=>false,"message"=>"Edit Absen Berhasil","params"=>["status"=>$data["status"]]];
       }
-      return ["error"=>"001","message"=>"Edit Guru Gagal"];
+      return ["error"=>"001","message"=>"Edit Absen Gagal"];
     //}
     //return ["error"=>"001","message"=>"Field ada yang kosong"];
   }

@@ -16,5 +16,5 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('/absenIn','AbsenController@absenIn');
-Route::put('/absenOut','AbsenController@absenOut');
+Route::post('/absen/in','AbsenController@absenIn');
+Route::post('/absen/out','AbsenController@absenOut');
