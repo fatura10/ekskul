@@ -29,8 +29,8 @@
                         <a href="javascript:void(0)" aria-expanded="true"><i class="ti-layout-sidebar-left"></i><span>Laporan
                             </span></a>
                         <ul class="collapse">
-                            <li><a href="index.html">Nilai</a></li>
-                            <li><a href="index3-horizontalmenu.html">Absen</a></li>
+                          <li><a href="/report/absen">Absen</a></li>
+                          <li><a href="index.html">Nilai</a></li>
                         </ul>
                     </li>
                     <li><a href="/dashboard"><i class="ti-receipt"></i> <span>Keluhan</span></a></li>

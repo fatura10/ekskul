@@ -34,7 +34,7 @@ class EkskulController extends Controller
           FROM tb_member_ekskul a
           JOIN tb_siswa b ON a.`id_siswa` = b.`id`
           JOIN tb_kelas c ON c.`id_kelas` = b.`id_kelas`
-          LEFT JOIN tb_absen d ON d.`id_siswa` = b.`id`
+          LEFT JOIN tb_absen d ON d.`id_siswa` = b.`id` AND DATE=DATE(NOW())
           WHERE a.id_ekskul='".$id_ekskul."'
           order by b.nama_siswa";
       } else {
@@ -42,7 +42,7 @@ class EkskulController extends Controller
           FROM tb_member_ekskul a
           JOIN tb_siswa b ON a.`id_siswa` = b.`id`
           JOIN tb_kelas c ON c.`id_kelas` = b.`id_kelas`
-          LEFT JOIN tb_absen d ON d.`id_siswa` = b.`id`  AND d.`id_jadwal`='".$id_jadwal."'
+          LEFT JOIN tb_absen d ON d.`id_siswa` = b.`id`  AND d.`id_jadwal`='".$id_jadwal."' AND DATE=DATE(NOW())
           WHERE a.id_ekskul='".$id_ekskul."'
           order by b.nama_siswa";
       }
@@ -115,6 +115,16 @@ class EkskulController extends Controller
       $dataAbsen = $this->dataAnggota($req->input('id_ekskul'),$req->input('id_jad'));
       $id_pel = SESSION::get('userData')['userData']['user_id'];
       return view('page.absen',compact('dataAbsen','dataEkskul','id_pel'));
+    }
+
+    public function reportAbsen (Request $req)
+    {
+      $queryEkskul = "SELECT DATE_FORMAT(DATE,'%d %M %Y') tglLatihan, c.`nama`,b.`starting_hour`, b.`finishing_hour`,b.`hari`,b.`id_jadwal`
+        FROM tb_absen a
+        JOIN tb_jad b ON a.`id_jadwal` = b.`id_jadwal`
+        JOIN tb_ekskul c ON b.`id_ekskul` = c.`id_ekskul`";
+        $dataEkskul =  DB::select($queryEkskul);
+      return view('page.reportAbsen',compact('dataEkskul'));
     }
 
     public function nilai (Request $req)
