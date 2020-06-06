@@ -37,7 +37,7 @@
                              <td class="text-center">{{$data->nama}}</td>
                              <td class="text-center">{{$data->hari}}, {{$data->tglLatihan}} - {{$data->starting_hour}} s.d {{$data->finishing_hour}}</td>
                              <td class="text-center">
-                               <a href="#" class="btn btn-success">View</a>
+                               <a href="/report/absen/siswa?id_jad={{$data->id_jadwal}}&id_ekskul={{$data->id_ekskul}}&tgl_latihan={{$data->tglLatihan2}}" class="btn btn-success">View</a>
                              </td>
                          @endforeach
                        </tbody>
