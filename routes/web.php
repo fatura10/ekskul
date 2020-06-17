@@ -52,7 +52,7 @@ Route::post('/tambahPelatih','EkskulController@tambahPelatih');
 Route::get('/anggotaEkskul','EkskulController@anggotaEkskul');
 Route::post('/tambahAnggota','EkskulController@tambahAnggota');
 
-/*Routing Ekskul*/
+/*Routing Report*/
 Route::get('/report/absen','EkskulController@reportAbsen');
 Route::get('/report/absen/siswa','EkskulController@reportAbsenSiswa');
 
