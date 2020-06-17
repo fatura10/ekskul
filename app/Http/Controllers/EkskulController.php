@@ -27,26 +27,25 @@ class EkskulController extends Controller
       return view('page.detailEkskul',compact('dataEkskul','dataPelatih','dataJadwal'));
     }
 
-    public function dataAnggota ($id_ekskul,$id_jadwal=null)
+    public function dataAnggota ($id_ekskul,$id_jadwal=null,$tglLatihan=null)
     {
       if ($id_jadwal==null) {
         $queryEkskul = "SELECT id_member, b.`nama_siswa`, b.`tempat_lahir`, b.`tgl_lahir`,b.`alamat`, c.`nama`,b.id,d.id_absen,IFNULL(d.`status`,0) status
           FROM tb_member_ekskul a
           JOIN tb_siswa b ON a.`id_siswa` = b.`id`
           JOIN tb_kelas c ON c.`id_kelas` = b.`id_kelas`
-          LEFT JOIN tb_absen d ON d.`id_siswa` = b.`id`
+          LEFT JOIN tb_absen d ON d.`id_siswa` = b.`id` AND DATE=DATE(NOW())
           WHERE a.id_ekskul='".$id_ekskul."'
           order by b.nama_siswa";
       } else {
-        $queryEkskul = "SELECT id_member, b.`nama_siswa`, b.`tempat_lahir`, b.`tgl_lahir`,b.`alamat`, c.`nama`,b.id,d.id_absen,IFNULL(d.`status`,0) status
+        $queryEkskul = "SELECT id_member, b.`nama_siswa`, b.`tempat_lahir`, b.`tgl_lahir`,b.`alamat`, c.`nama`,b.id,d.id_absen,IFNULL(d.`status`,0) status,DATE tglLatihan,d.absen_time
           FROM tb_member_ekskul a
           JOIN tb_siswa b ON a.`id_siswa` = b.`id`
           JOIN tb_kelas c ON c.`id_kelas` = b.`id_kelas`
-          LEFT JOIN tb_absen d ON d.`id_siswa` = b.`id`  AND d.`id_jadwal`='".$id_jadwal."'
+          LEFT JOIN tb_absen d ON d.`id_siswa` = b.`id`  AND d.`id_jadwal`='".$id_jadwal."' AND DATE=".($tglLatihan==null?"DATE(NOW())":"'".$tglLatihan."'")."
           WHERE a.id_ekskul='".$id_ekskul."'
           order by b.nama_siswa";
       }
-
       return DB::select($queryEkskul);
     }
 
@@ -115,6 +114,23 @@ class EkskulController extends Controller
       $dataAbsen = $this->dataAnggota($req->input('id_ekskul'),$req->input('id_jad'));
       $id_pel = SESSION::get('userData')['userData']['user_id'];
       return view('page.absen',compact('dataAbsen','dataEkskul','id_pel'));
+    }
+
+    public function reportAbsen (Request $req)
+    {
+      $queryEkskul = "SELECT DATE_FORMAT(DATE,'%d %M %Y') tglLatihan,DATE tglLatihan2, c.`nama`,b.`starting_hour`, b.`finishing_hour`,b.`hari`,b.`id_jadwal`,a.`id_absen`,b.id_ekskul
+        FROM tb_absen a
+        JOIN tb_jad b ON a.`id_jadwal` = b.`id_jadwal`
+        JOIN tb_ekskul c ON b.`id_ekskul` = c.`id_ekskul`";
+        $dataEkskul =  DB::select($queryEkskul);
+      return view('page.reportAbsen',compact('dataEkskul'));
+    }
+
+    public function reportAbsenSiswa (Request $req)
+    {
+      $dataEkskul = $this->getDataAnggota($req->input('id_jad'));
+      $dataAbsen = $this->dataAnggota($req->input('id_ekskul'),$req->input('id_jad'),$req->input('tgl_latihan'));
+      return view('page.reportAbsenSiswa',compact('dataAbsen','dataEkskul'));
     }
 
     public function nilai (Request $req)
