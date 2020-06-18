@@ -21,7 +21,7 @@
                <div class="col-sm-12">
                  <ul class="nav">
                   <li class="nav-item">
-                    <a class="nav-link active btn btn-secondary btn-rounded" data-toggle="tab" href="#siswa">Siswa</a>
+                    <a class="nav-link btn btn-secondary btn-rounded" data-toggle="tab" href="#siswa" id="tabSiswa">Siswa</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link btn btn-secondary btn-rounded" data-toggle="tab" href="#bulanan">Bulanan</a>
@@ -33,7 +33,7 @@
              <div class="row">
                <div class="col-sm-12">
                  <div class="tab-content">
-                    <div id="siswa" class="tab-pane fade in active">
+                    <div id="siswa" class="tab-pane fade in ">
                       <div class="table-responsive">
                           <table class="table">
                               <thead class="bg-light">
@@ -60,8 +60,35 @@
                       </div>
                     </div>
                     <div id="bulanan" class="tab-pane fade">
-                      <h3>Menu 1</h3>
-                      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                      <div class="table-responsive">
+                          <table class="table">
+                              <thead class="bg-light">
+                                  <tr>
+                                      <th class="text-center">#</th>
+                                      <th class="text-center">Nama Ekskul</th>
+                                      <th class="text-center">Alamat Sekretariat</th>
+                                      <th class="text-center">Telepon</th>
+                                      <th class="text-center">Tanggal Gabung</th>
+                                      <th class="text-center">Action</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                @php($i=1)
+                                @foreach($listEkskul as $data)
+                                  <tr>
+                                    <td class="text-center">{{($i++)}}</td>
+                                    <td class="text-center">{{$data->nama}}</td>
+                                    <td class="text-center">{{$data->alamat}}</td>
+                                    <td class="text-center">{{$data->telepon}}</td>
+                                    <td class="text-center">{{$data->tgl_gabung}}</td>
+                                    <td class="text-center">
+                                      <a href="/detailEkskul?id_ekskul={{$data->id_ekskul}}" class="btn btn-success btn-xs btn-rounded"><i class="fa fa-book"></i></a>
+                                    </td>
+                                  </tr>
+                                @endforeach
+                              </tbody>
+                          </table>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -77,4 +104,10 @@
 
 
 </div>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#tabSiswa').click()
+})
+
+</script>
 @endsection

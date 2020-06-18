@@ -123,7 +123,8 @@ class EkskulController extends Controller
         JOIN tb_jad b ON a.`id_jadwal` = b.`id_jadwal`
         JOIN tb_ekskul c ON b.`id_ekskul` = c.`id_ekskul`";
         $dataEkskul =  DB::select($queryEkskul);
-      return view('page.reportAbsen',compact('dataEkskul'));
+        $listEkskul = Ekskul::get();
+      return view('page.reportAbsen',compact('dataEkskul','listEkskul'));
     }
 
     public function reportAbsenSiswa (Request $req)

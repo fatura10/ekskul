@@ -33,6 +33,9 @@
         width: 100%;
         display: none;
       }
+      .nav-item{
+        margin : 5px;
+      }
     </style>
 </head>
 
