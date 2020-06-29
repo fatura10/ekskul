@@ -82,7 +82,7 @@
                                     <td class="text-center">{{$data->telepon}}</td>
                                     <td class="text-center">{{$data->tgl_gabung}}</td>
                                     <td class="text-center">
-                                      <a href="/report/absen/bulanan?id_jad={{$data->id_jadwal}}&id_ekskul={{$data->id_ekskul}}&tgl_latihan={{$data->tglLatihan2}}" class="btn btn-success">View</a>
+                                      <a href="/report/absen/bulanan?id_ekskul={{$data->id_ekskul}}" class="btn btn-success">View</a>
                                     </td>
                                   </tr>
                                 @endforeach

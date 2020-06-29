@@ -118,10 +118,11 @@ class EkskulController extends Controller
 
     public function reportAbsen (Request $req)
     {
-      $queryEkskul = "SELECT DATE_FORMAT(DATE,'%d %M %Y') tglLatihan,DATE tglLatihan2, c.`nama`,b.`starting_hour`, b.`finishing_hour`,b.`hari`,b.`id_jadwal`,a.`id_absen`,b.id_ekskul
+      $queryEkskul = "SELECT DATE_FORMAT(DATE,'%d %M %Y') tglLatihan,DATE tglLatihan2, c.`nama`,b.`starting_hour`, b.`finishing_hour`,b.`hari`,b.`id_jadwal`,b.id_ekskul
         FROM tb_absen a
         JOIN tb_jad b ON a.`id_jadwal` = b.`id_jadwal`
-        JOIN tb_ekskul c ON b.`id_ekskul` = c.`id_ekskul`";
+        JOIN tb_ekskul c ON b.`id_ekskul` = c.`id_ekskul`
+        GROUP BY DATE,c.`nama`,b.`starting_hour`,b.`finishing_hour`,b.`hari`,b.`id_jadwal`,b.`id_ekskul`";
         $dataEkskul =  DB::select($queryEkskul);
         $listEkskul = Ekskul::get();
       return view('page.reportAbsen',compact('dataEkskul','listEkskul'));
@@ -132,6 +133,12 @@ class EkskulController extends Controller
       $dataEkskul = $this->getDataAnggota($req->input('id_jad'));
       $dataAbsen = $this->dataAnggota($req->input('id_ekskul'),$req->input('id_jad'),$req->input('tgl_latihan'));
       return view('page.reportAbsenSiswa',compact('dataAbsen','dataEkskul'));
+    }
+
+    public function reportAbsenBulanan (Request $req)
+    {
+      $dataEkskul = Ekskul::where('id_ekskul',$req->input('id_ekskul'))->first();
+      return view('page.reportAbsenBulanan',compact('dataEkskul'));
     }
 
     public function nilai (Request $req)
