@@ -141,6 +141,25 @@ class EkskulController extends Controller
       return view('page.reportAbsenBulanan',compact('dataEkskul'));
     }
 
+    public function getReportAbsenBulanan(Request $req)
+    {
+      $dataEkskul = Ekskul::where('id_ekskul',$req->id_ekskul)->first();
+      $dtLength = date('t');
+      $query = "SELECT ";
+      for ($i=0; $i <=$dtLength ; $i++) {
+        $query .="SUM( IF( tgl = ".$i.", totalAbsen, 0) ) AS '".$i."',";
+      )
+      $query .="id_siswa FROM (
+        SELECT COUNT(id_siswa) totalAbsen, id_siswa,MONTH(absen_time)tgl,id_jadwal
+      	FROM tb_absen
+      	WHERE DATE_FORMAT(absen_time,'%m')='".$req->bulan."' AND DATE_FORMAT(absen_time,'%Y')='".$req->tahun."'
+      	GROUP BY id_siswa,MONTH(absen_time),id_jadwal
+      ) AS X
+      GROUP BY id_siswa";
+      $dataReport =  DB::select($query);
+      return view('page.reportAbsenBulanan',compact('dataEkskul','dataReport','dtLength'));
+    }
+
     public function nilai (Request $req)
     {
       $dataEkskul = $this->getDataAnggota($req->input('id_ekskul'));
