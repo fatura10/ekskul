@@ -151,18 +151,17 @@ class EkskulController extends Controller
         }
         $query .="b.`nama_siswa`,c.`nama`
         FROM (
-        	SELECT COUNT(id_siswa) totalAbsen, id_siswa,MONTH(absen_time)tgl,a.id_jadwal
+        	SELECT COUNT(id_siswa) totalAbsen, id_siswa,DAY(absen_time)tgl,a.id_jadwal
         	FROM tb_absen a
         	JOIN tb_jad b ON a.`id_jadwal` = b.id_jadwal
         	WHERE DATE_FORMAT(absen_time,'%m')='".$req->bulan."' AND DATE_FORMAT(absen_time,'%Y')='".$req->tahun."'  AND b.id_ekskul = '".$req->id_ekskul."'
-        	GROUP BY id_siswa,MONTH(absen_time),id_jadwal
+        	GROUP BY id_siswa,DAY(absen_time),id_jadwal
         ) AS X
         JOIN tb_siswa b ON x.id_siswa = b.`id`
         JOIN tb_kelas c ON c.`id_kelas` = b.`id_kelas`
         GROUP BY id_siswa,b.`nama_siswa`,c.`nama`
         ";
         $dataReport =  DB::select($query);
-        //echo $query;
       return view('page.reportAbsenBulanan',compact('dataEkskul','dataReport','dtLength'));
     }
 
