@@ -141,6 +141,7 @@ class EkskulController extends Controller
       return view('page.reportAbsenBulanan',compact('dataEkskul'));
     }
 
+ 
     public function getReportAbsenBulanan(Request $req)
     {
       $dataEkskul = Ekskul::where('id_ekskul',$req->id_ekskul)->first();
