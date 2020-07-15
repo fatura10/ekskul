@@ -18,3 +18,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::post('/absen/in','AbsenController@absenIn');
 Route::post('/absen/out','AbsenController@absenOut');
+Route::get('/siswa/prc','DashboardController@getSiswaPrc');
+Route::get('/siswa/kls','DashboardController@getSiswaKls');

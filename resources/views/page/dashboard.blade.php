@@ -25,6 +25,18 @@
      </div>
  </div>
  <script type="text/javascript">
+ $(document).ready(function(){
+   $.get('/api/siswa/prc',function(d){
+     console.log(d);
+     parsePieChart (d)
+   })
+   $.get('/api/siswa/kls',function(d){
+     console.log(d);
+     parseBarChart (d)
+   })
+ })
+
+ function parsePieChart(d){
    Highcharts.chart('siswa-ekskul', {
     chart: {
         plotBackgroundColor: null,
@@ -54,102 +66,68 @@
         }
     },
     series: [{
-        name: 'Brands',
+        name: 'Total Siswa',
         colorByPoint: true,
         data: [{
-            name: 'Chrome',
-            y: 61.41,
-            sliced: true,
-            selected: true
-        }, {
-            name: 'Internet Explorer',
-            y: 11.84
-        }, {
-            name: 'Firefox',
-            y: 10.85
-        }, {
-            name: 'Edge',
-            y: 4.67
-        }, {
-            name: 'Safari',
-            y: 4.18
-        }, {
-            name: 'Sogou Explorer',
-            y: 1.64
-        }, {
-            name: 'Opera',
-            y: 1.6
-        }, {
-            name: 'QQ',
-            y: 1.2
-        }, {
-            name: 'Other',
-            y: 2.61
+            name: 'Mengikuti Ekskul',
+            y: parseInt(d.isEkskul),
+            color: "#ADFF2F"
+        },
+        {
+            name: 'Tidak Mengikuti Ekskul',
+            y: parseInt(d.nonEkskul),
+            color: "#FF0000"
         }]
     }]
   });
-  Highcharts.chart('siswa-perkelas', {
-   chart: {
-       plotBackgroundColor: null,
-       plotBorderWidth: null,
-       plotShadow: false,
-       type: 'column'
-   },
-   title: {
-       text: 'Siswa Mengikuti Ekskul Per Kelas'
-   },
-   tooltip: {
-       pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-   },
-   accessibility: {
-       point: {
-           valueSuffix: '%'
-       }
-   },
-   plotOptions: {
-       pie: {
-           allowPointSelect: true,
-           cursor: 'pointer',
-           dataLabels: {
-               enabled: true,
-               format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-           }
-       }
-   },
-   series: [{
-       name: 'Brands',
-       colorByPoint: true,
-       data: [{
-           name: 'Chrome',
-           y: 61.41,
-           sliced: true,
-           selected: true
-       }, {
-           name: 'Internet Explorer',
-           y: 11.84
-       }, {
-           name: 'Firefox',
-           y: 10.85
-       }, {
-           name: 'Edge',
-           y: 4.67
-       }, {
-           name: 'Safari',
-           y: 4.18
-       }, {
-           name: 'Sogou Explorer',
-           y: 1.64
-       }, {
-           name: 'Opera',
-           y: 1.6
-       }, {
-           name: 'QQ',
-           y: 1.2
-       }, {
-           name: 'Other',
-           y: 2.61
-       }]
-   }]
- });
+ }
+
+ function parseBarChart(d){
+   arrD = [];
+   cat = [];
+   $.each(d,function(){
+     arrD.push(
+       {
+           name: this.nama,
+           colorByPoint: true,
+           data: [parseInt(this.isEkskul)]
+       })
+     cat.push(this.nama)
+   })
+   Highcharts.chart('siswa-perkelas', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'column'
+    },
+    title: {
+        text: 'Siswa Mengikuti Ekskul Per Kelas'
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    colors: ['#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],
+    xAxis: {
+        categories:cat
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+            }
+        }
+    },
+    series: arrD
+  });
+ }
  </script>
 @endsection
