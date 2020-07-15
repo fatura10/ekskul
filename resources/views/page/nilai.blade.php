@@ -32,14 +32,16 @@
               </div>
             </br>
               <div class="table-responsive">
-                <form class="" action="index.html" method="post">
+                <form id="formNilai" action="/nilai/save" method="post">
+                  @csrf
+                  <input type="hidden" name="id_jadwal" value="{{$dataEkskul->id_jadwal}}">
                   <table class="table">
                       <thead class="bg-light">
                           <tr>
                               <th class="text-center">#</th>
                               <th class="text-center">Nama Siswa</th>
                               <th class="text-center">Kelas</th>
-                              <th class="text-center">Nilai</th>
+                              <th class="text-center" style="min-width : 1vw;">Nilai</th>
                           </tr>
                       </thead>
                       <tbody>
@@ -51,12 +53,13 @@
                             <td class="text-center">{{$data->nama_siswa}}</td>
                             <td class="text-center">{{$data->nama}}</td>
                             <td class="text-center">
-                              <input type="text" class="form-control" name="nilai[{{($z++)}}]" value="">
+                              <input type="hidden" name="id_siswa[{{($z)}}]" value="{{$data->id}}">
+                              <input type="text" class="form-control" name="nilai[{{($z++)}}]" style="width : 3vw;margin : 0 auto;" value="">
                             </td>
                         @endforeach
                       </tbody>
                   </table>
-                  <button type="submit" class="btn btn-primary" name="button">Simpan</button>
+                  <button type="submit" class="btn btn-primary btn-simpan" name="button">Simpan</button>
                   <button type="reset" class="btn btn-default" name="button">Clear</button>
                 </form>
 
@@ -69,4 +72,9 @@
 
 
 </div>
+<script type="text/javascript">
+  $('.btn-simpan').click(function(){
+    $('#formNilai').submit()
+  })
+</script>
 @endsection

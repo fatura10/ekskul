@@ -78,6 +78,9 @@ Route::get('/indexGuru','GuruController@indexGuru');
 /*Routing Absen*/
 Route::get('/absen','AbsenController@index');
 
+/*Routing Nilai*/
+Route::post('/nilai/save','NilaiController@saveNilai');
+
 
 
 

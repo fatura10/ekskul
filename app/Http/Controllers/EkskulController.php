@@ -141,7 +141,7 @@ class EkskulController extends Controller
       return view('page.reportAbsenBulanan',compact('dataEkskul'));
     }
 
- 
+
     public function getReportAbsenBulanan(Request $req)
     {
       $dataEkskul = Ekskul::where('id_ekskul',$req->id_ekskul)->first();
@@ -168,7 +168,7 @@ class EkskulController extends Controller
 
     public function nilai (Request $req)
     {
-      $dataEkskul = $this->getDataAnggota($req->input('id_ekskul'));
+      $dataEkskul = $this->getDataAnggota($req->input('id_jad'));
       $dataAbsen = $this->dataAnggota($req->input('id_ekskul'));
       return view('page.nilai',compact('dataAbsen','dataEkskul'));
     }
