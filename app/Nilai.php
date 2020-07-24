@@ -36,7 +36,7 @@ class Nilai extends Model
   public static function insertData($data)
   {
     if (self::validateForm($data)) {
-      $data["id"]=self::generateId();
+      $data["id_nilai"]=self::generateId();
       $data["created_dt"]=date("Y-m-d H:i:s");
       $data["created_user"]=SESSION::get('userData')['userData']['user_id'];
       //dd(self::insert($data));

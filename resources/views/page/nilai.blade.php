@@ -34,7 +34,7 @@
               <div class="table-responsive">
                 <form id="formNilai" action="/nilai/save" method="post">
                   @csrf
-                  <input type="hidden" name="id_jadwal" value="{{$dataEkskul->id_jadwal}}">
+                  <input type="hidden" name="id_ekskul" value="{{$dataEkskul->id_ekskul}}">
                   <table class="table">
                       <thead class="bg-light">
                           <tr>
