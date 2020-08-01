@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Nilai;
+use DB;
+use App\Ekskul;
 
 class NilaiController extends Controller
 {
@@ -35,6 +37,38 @@ class NilaiController extends Controller
         GROUP BY DATE,c.`nama`,b.`starting_hour`,b.`finishing_hour`,b.`hari`,b.`id_jadwal`,b.`id_ekskul`";
         $dataEkskul =  DB::select($queryEkskul);
         $listEkskul = Ekskul::get();
-      return view('page.reportNilai',compact('dataEkskul','listEkskul'));
+      return view('page.reportAbsen',compact('dataEkskul','listEkskul'));
+    }
+    public function reportNilaiBulanan (Request $req)
+    {
+      $dataEkskul = Ekskul::where('id_ekskul',$req->input('id_ekskul'))->first();
+      return view('page.reportNilaiBulanan',compact('dataEkskul'));
+    }
+    public function getReportNilai(Request $r)
+    {
+      $query = "SELECT
+              SUM( IF( nMonth = 1, nilai, 0) ) AS '1',
+              SUM( IF( nMonth = 2, nilai, 0) ) AS '2',
+              SUM( IF( nMonth = 3, nilai, 0) ) AS '3',
+              SUM( IF( nMonth = 4, nilai, 0) ) AS '4',
+              SUM( IF( nMonth = 5, nilai, 0) ) AS '5',
+              SUM( IF( nMonth = 6, nilai, 0) ) AS '6',
+              SUM( IF( nMonth = 7, nilai, 0) ) AS '7',
+              SUM( IF( nMonth = 8, nilai, 0) ) AS '8',
+              SUM( IF( nMonth = 9, nilai, 0) ) AS '9',
+              SUM( IF( nMonth = 10, nilai, 0) ) AS '10',
+              SUM( IF( nMonth = 11, nilai, 0) ) AS '11',
+              SUM( IF( nMonth = 12, nilai, 0) ) AS '12',
+              x.`nama_siswa`,c.`nama` kelas
+              FROM (
+              	SELECT b.nama_siswa,b.`id_kelas`, DATE_FORMAT(a.`created_dt`,'%m') nMonth, SUM(a.nilai) nilai
+              	FROM tb_nilai a
+              	JOIN tb_siswa b ON a.id_siswa = b.`id`
+              	WHERE a.`id_ekskul` ='2005191799' AND DATE_FORMAT(a.`created_dt`,'%Y')='".$r->tahun."'
+              	GROUP BY b.`nama_siswa`,b.`id_kelas`, DATE_FORMAT(a.`created_dt`,'%m')
+              ) AS X
+              JOIN tb_kelas c ON c.`id_kelas` =x.`id_kelas`
+              GROUP BY x.`nama_siswa`,c.`nama` ";
+      $dataReport =  DB::select($query);
     }
 }

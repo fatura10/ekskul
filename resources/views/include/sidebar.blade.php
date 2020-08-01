@@ -30,7 +30,7 @@
                             </span></a>
                         <ul class="collapse">
                           <li><a href="/report/absen">Absen</a></li>
-                          <li><a href="index.html">Nilai</a></li>
+                          <li><a href="/report/nilai">Nilai</a></li>
                         </ul>
                     </li>
                     <li><a href="/dashboard"><i class="ti-receipt"></i> <span>Keluhan</span></a></li>
