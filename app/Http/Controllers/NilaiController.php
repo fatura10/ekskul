@@ -46,29 +46,31 @@ class NilaiController extends Controller
     }
     public function getReportNilaiBulanan(Request $req)
     {
-      $query = "SELECT
-              SUM( IF( nMonth = 1, nilai, 0) ) AS '1',
-              SUM( IF( nMonth = 2, nilai, 0) ) AS '2',
-              SUM( IF( nMonth = 3, nilai, 0) ) AS '3',
-              SUM( IF( nMonth = 4, nilai, 0) ) AS '4',
-              SUM( IF( nMonth = 5, nilai, 0) ) AS '5',
-              SUM( IF( nMonth = 6, nilai, 0) ) AS '6',
-              SUM( IF( nMonth = 7, nilai, 0) ) AS '7',
-              SUM( IF( nMonth = 8, nilai, 0) ) AS '8',
-              SUM( IF( nMonth = 9, nilai, 0) ) AS '9',
-              SUM( IF( nMonth = 10, nilai, 0) ) AS '10',
-              SUM( IF( nMonth = 11, nilai, 0) ) AS '11',
-              SUM( IF( nMonth = 12, nilai, 0) ) AS '12',
+      $date = strtotime($req->tahun.'-01-01 -1 year');
+      $befYear = date('Y', $date);
+      $query = "SELECT SUM( IF( nMonth = 7, nilai, 0) ) AS '1',
+              SUM( IF( nMonth = 8, nilai, 0) ) AS '2',
+              SUM( IF( nMonth = 9, nilai, 0) ) AS '3',
+              SUM( IF( nMonth = 10, nilai, 0) ) AS '4',
+              SUM( IF( nMonth = 11, nilai, 0) ) AS '5',
+              SUM( IF( nMonth = 12, nilai, 0) ) AS '6',
+              SUM( IF( nMonth = 1, nilai, 0) ) AS '7',
+              SUM( IF( nMonth = 2, nilai, 0) ) AS '8',
+              SUM( IF( nMonth = 3, nilai, 0) ) AS '9',
+              SUM( IF( nMonth = 4, nilai, 0) ) AS '10',
+              SUM( IF( nMonth = 5, nilai, 0) ) AS '11',
+              SUM( IF( nMonth = 6, nilai, 0) ) AS '12',
               x.`nama_siswa`,c.`nama` kelas
               FROM (
               	SELECT b.nama_siswa,b.`id_kelas`, DATE_FORMAT(a.`created_dt`,'%m') nMonth, SUM(a.nilai) nilai
               	FROM tb_nilai a
               	JOIN tb_siswa b ON a.id_siswa = b.`id`
-              	WHERE a.`id_ekskul` ='2005191799' AND DATE_FORMAT(a.`created_dt`,'%Y')='".$req->tahun."'
+              	WHERE a.`id_ekskul` ='".$req->id_ekskul."' AND DATE_FORMAT(a.`created_dt`,'%Y%m') BETWEEN '".$befYear."07' AND '".$req->tahun."06'
               	GROUP BY b.`nama_siswa`,b.`id_kelas`, DATE_FORMAT(a.`created_dt`,'%m')
               ) AS X
               JOIN tb_kelas c ON c.`id_kelas` =x.`id_kelas`
-              GROUP BY x.`nama_siswa`,c.`nama` ";
+              GROUP BY x.`nama_siswa`,c.`nama`";
+              
       $dataReport =  DB::select($query);
       $dataEkskul = Ekskul::where('id_ekskul',$req->id_ekskul)->first();
       $dtLength = date('t');

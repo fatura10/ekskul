@@ -22,6 +22,13 @@
                  </div>
              </div>
          </div>
+         <div class="row mt-4">
+           <div class="col-md-12">
+             <div class="single-report mb-xs-30">
+               <div id="nilai-tertinggi" width="100%"></div>
+             </div>
+           </div>
+         </div>
      </div>
  </div>
  <script type="text/javascript">
@@ -32,7 +39,15 @@
    })
    $.get('/api/siswa/kls',function(d){
      console.log(d);
-     parseBarChart (d)
+     d.stitle = "Siswa Mengikuti Ekskul Per Kelas"
+     d.title = "Anggota Ekskul"
+     parseBarChart ('siswa-perkelas',d)
+   })
+   $.get('/api/siswa/nilai',function(d){
+     console.log(d);
+     d.stitle = "Top 10 Nilai Ekskul"
+     d.title = "Nilai Ekskul Tertinggi ke Rendah"
+     parseBarChart ('nilai-tertinggi',d)
    })
  })
 
@@ -82,19 +97,15 @@
   });
  }
 
- function parseBarChart(d){
+
+ function parseBarChart(id,d){
    arrD = [];
    cat = [];
    $.each(d,function(){
-     arrD.push(
-       {
-           name: this.nama,
-           colorByPoint: true,
-           data: [parseInt(this.isEkskul)]
-       })
+     arrD.push(parseInt(this.isEkskul))
      cat.push(this.nama)
    })
-   Highcharts.chart('siswa-perkelas', {
+   Highcharts.chart(id, {
     chart: {
         plotBackgroundColor: null,
         plotBorderWidth: null,
@@ -102,10 +113,10 @@
         type: 'column'
     },
     title: {
-        text: 'Siswa Mengikuti Ekskul Per Kelas'
+        text: d.title
     },
     tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        pointFormat: '{series.name}: <b>{point.y}</b>'
     },
     colors: ['#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'],
     xAxis: {
@@ -113,7 +124,7 @@
     },
     accessibility: {
         point: {
-            valueSuffix: '%'
+            valueSuffix: '{point.y:.1f}'
         }
     },
     plotOptions: {
@@ -126,7 +137,11 @@
             }
         }
     },
-    series: arrD
+    series: [{
+        name: d.stitle,
+        colorByPoint: true,
+        data: arrD
+    }]
   });
  }
  </script>

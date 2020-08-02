@@ -48,32 +48,59 @@
                   <table class="table">
                       <thead class="bg-light">
                           <tr>
-                              <th class="text-center" rowspan="2">#</th>
-                              <th class="text-center" rowspan="2">Nama Siswa</th>
-                              <th class="text-center" rowspan="2">Kelas</th>
-                              <th class="text-center" colspan="12">Tanggal</th>
+                              <th class="text-center" rowspan="3">#</th>
+                              <th class="text-center" rowspan="3">Nama Siswa</th>
+                              <th class="text-center" rowspan="3">Kelas</th>
+                              <th class="text-center" colspan="16">Semester</th>
                           </tr>
-
                           <tr>
-                            @if(isset($dtLength))
-                            @for($i=0;$i<12;$i++)
-                             <th>{{($i+1)}}</th>
-                            @endfor
-                            @endif
+                            <th class="text-center" colspan="7">Ganjil</th>
+                            <th class="text-center" colspan="7">Genap</th>
+                            <th colspan="2">&nbsp</th>
+                          </tr>
+                          <tr>
+                            <th class="text-center" >Juli</th>
+                            <th class="text-center" >Ags</th>
+                            <th class="text-center" >Sep</th>
+                            <th class="text-center" >Okt</th>
+                            <th class="text-center" >Nov</th>
+                            <th class="text-center" >Des</th>
+                            <th class="text-center" >Total</th>
+                            <th class="text-center" >Jan</th>
+                            <th class="text-center" >Feb</th>
+                            <th class="text-center" >Mar</th>
+                            <th class="text-center" >Apr</th>
+                            <th class="text-center" >Mei</th>
+                            <th class="text-center" >Jun</th>
+                            <th class="text-center" >Total</th>
+                            <th class="text-center" >G. Total</th>
+                            <th class="text-center" >Rata-Rata</th>
                           </tr>
                       </thead>
                       <tbody>
                         @php($i=1)
+                        @php($z=1)
+                        @php($total=0)
+
                         @if(isset($dataReport))
                           @php($NdataReport = json_decode(json_encode($dataReport),true) )
                           @foreach($NdataReport as $data)
                           <tr>
-                            <td>{{$i++}}</td>
+                            <td>{{$z++}}</td>
                             <td>{{$data['nama_siswa']}}</td>
                             <td>{{$data['kelas']}}</td>
                             @for($i=0;$i<12;$i++)
+                            @php($gTotal=0)
+                            @php($total=$total+$data[($i+1)])
                              <th>{{$data[($i+1)]==0?'':$data[($i+1)]}}</th>
+                             @if($i==5||$i==11)
+                              <th>{{$total}}</th>
+                              @php($gTotal=$gTotal+$total)
+                              @php($total=0)
+                             @endif
                             @endfor
+                            <th>{{$gTotal}}</th>
+                            <th>{{number_format($gTotal/12,2)}}</th>
                           </tr>
                           @endforeach
                         @endif
