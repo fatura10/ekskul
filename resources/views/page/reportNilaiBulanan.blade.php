@@ -23,27 +23,11 @@
                 </div>
               </div>
 
-                <form class="" action="/report/absen/bulanan" method="post">
+                <form class="" action="/report/nilai/bulanan" method="post">
                   @csrf
                   <input type="hidden" name="id_ekskul" value="{{$dataEkskul->id_ekskul}}">
                   <div class="row">
-                    <div class="col-sm-4">
-                      <select class="form-control" name="bulan">
-                        <option value="">--Pilih Bulan--</option>
-                        <option value="01">Januari</option>
-                        <option value="02">Februari</option>
-                        <option value="03">Maret</option>
-                        <option value="04">April</option>
-                        <option value="05">Mei</option>
-                        <option value="06">Juni</option>
-                        <option value="07">Juli</option>
-                        <option value="08">Agustus</option>
-                        <option value="09">September</option>
-                        <option value="10">Oktober</option>
-                        <option value="11">November</option>
-                        <option value="12">Desember</option>
-                      </select>
-                    </div>
+
                     <div class="col-sm-4">
                       <select class="form-control" name="tahun">
                         <option value="">--Pilih Tahun--</option>
@@ -67,12 +51,12 @@
                               <th class="text-center" rowspan="2">#</th>
                               <th class="text-center" rowspan="2">Nama Siswa</th>
                               <th class="text-center" rowspan="2">Kelas</th>
-                              <th class="text-center" colspan="{{(isset($dtLength)?$dtLength:0)}}">Tanggal</th>
+                              <th class="text-center" colspan="12">Tanggal</th>
                           </tr>
 
                           <tr>
                             @if(isset($dtLength))
-                            @for($i=0;$i<$dtLength;$i++)
+                            @for($i=0;$i<12;$i++)
                              <th>{{($i+1)}}</th>
                             @endfor
                             @endif
@@ -86,8 +70,8 @@
                           <tr>
                             <td>{{$i++}}</td>
                             <td>{{$data['nama_siswa']}}</td>
-                            <td>{{$data['nama']}}</td>
-                            @for($i=0;$i<$dtLength;$i++)
+                            <td>{{$data['kelas']}}</td>
+                            @for($i=0;$i<12;$i++)
                              <th>{{$data[($i+1)]==0?'':$data[($i+1)]}}</th>
                             @endfor
                           </tr>

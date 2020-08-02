@@ -59,6 +59,7 @@ Route::get('/report/absen/siswa','EkskulController@reportAbsenSiswa');
 Route::get('/report/absen/bulanan','EkskulController@reportAbsenBulanan');
 Route::post('/report/absen/bulanan','EkskulController@getReportAbsenBulanan');
 Route::get('/report/nilai/bulanan','NilaiController@reportNilaiBulanan');
+Route::post('/report/nilai/bulanan','NilaiController@getReportNilaiBulanan');
 
 /*Routing Mata Pelajaran*/
 Route::get('/mataPelajaran','MapelController@index');
