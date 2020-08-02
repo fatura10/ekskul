@@ -22,7 +22,7 @@
                  </div>
              </div>
          </div>
-         <div class="row mt-4">
+         <div class="row mt-4"> 
            <div class="col-md-12">
              <div class="single-report mb-xs-30">
                <div id="nilai-tertinggi" width="100%"></div>
