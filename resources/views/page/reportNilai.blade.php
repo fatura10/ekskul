@@ -24,7 +24,7 @@
                     <a class="nav-link btn btn-secondary btn-rounded" data-toggle="tab" href="#siswa" id="tabSiswa">Siswa</a>
                   </li> -->
                   <li class="nav-item">
-                    <a class="nav-link btn btn-secondary btn-rounded" data-toggle="tab" href="#bulanan">Bulanan</a>
+                    <a class="nav-link btn btn-secondary btn-rounded" data-toggle="tab" href="#bulanan" id="tabBilanan">Bulanan</a>
                   </li>
                 </ul>
                </div>
@@ -106,7 +106,7 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function(){
-  $('#bulanan').click()
+  $('#tabBilanan').click()
 })
 
 </script>
