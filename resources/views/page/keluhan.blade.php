@@ -38,8 +38,26 @@
                             <tr>
                               <td class="text-center">{{($i++)}}</td>
                               <td>{{$data->keluhan}}</td>
-                              <td>{{$data->feedback}}</td>
-                              <td>{{$data->status}}</td>
+                              <td>
+                                @if(SESSION::get('userData')['userData']['level']!=1)
+                                {{$data->feedback}}
+                                @else
+                                <textarea name="feedbac" class="form-control"></textarea>
+                                <button type="button" class="btn btn-success btn-sm btn-rounded" id="btn-feedback">Simpan</button>
+                                @endif
+                              </td>
+                              <td class="text-center">
+                                @if(SESSION::get('userData')['userData']['level']!=1)
+                                <i class="badge badge-{{($data->status==0?'primary':($data->status==1?'warning':'success'))}}">{{($data->status==0?'Terkirim':($data->status==1?'Diproses':'Selesai'))}}</i>
+                                @else
+                                  <select class="form-control" name="status" data-id="{{$data->id_keluhan}}" id="statusKeluhan">
+                                    <option value="">status</option>
+                                    <option value="0" {{$data->status==0?'selected':''}}>Terkirim</option>
+                                    <option value="1" {{$data->status==1?'selected':''}}>Diproses</option>
+                                    <option value="2" {{$data->status==2?'selected':''}}>Selesai</option>
+                                  </select>
+                                @endif
+                              </td>
                             </tr>
                           @endforeach
                         </tbody>
@@ -84,36 +102,13 @@
 
 
 <script type="text/javascript">
-  $('.btn-detail').click(function(){
-    $('#tambahKeluhan').attr('action','/editKeluhan')
-    $('#modal-tittle').text('Edit Keluhan')
-    $.get('/guru/getDetail?id_guru='+$(this).data('id'),function(data){
+  $('select[name="status"]').change(function(){
+    $.get('/keluhan/status?id_keluhan='+$(this).data('id')+'&status='+$(this).val(),function(data){
       console.log(data);
-      var html="";
-      var dataKeluhan = data.dataKeluhan
-      //$('.removeOption').remove()
-      $.each(data.dataKota,function(){
-        html+="<option class='kotaOption' value='"+this.id_kota+"'>"+this.nama+"</option>"
-
-      })
-        $('select[name="id_kota"]').html(html).promise().done(function(){
-          $('select[name="id_kota"]').val(dataKeluhan.id_kota)
-        })
-
-
-      $('input[name="id_guru"]').val(dataKeluhan.id_guru)
-      $('input[name="nip"]').val(dataKeluhan.nip)
-      $('input[name="nama_guru"]').val(dataKeluhan.nama_guru)
-      $('input[name="email"]').val(dataKeluhan.email)
-      $('select[name="jns_kel"]').val(dataKeluhan.jns_kel)
-      $('input[name="telepon"]').val(dataKeluhan.telepon)
-      $('input[name="tempat_lahir"]').val(dataKeluhan.tempat_lahir)
-      $('input[name="tgl_lahir"]').val(dataKeluhan.tgl_lahir)
-      $('select[name="id_provinsi"]').val(dataKeluhan.id_provinsi)
-
-      $('select[name="agama"]').val(dataKeluhan.agama)
-      $('textarea[name="alamat"]').val(dataKeluhan.alamat)
-      $('input[name="kode_pos"]').val(dataKeluhan.kode_pos)
+      if (!data.error) {
+        window.reload()
+      }
+      alert(data.message)
     })
   })
 

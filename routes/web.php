@@ -87,7 +87,7 @@ Route::post('/nilai/save','NilaiController@saveNilai');
 /*Routing Keluhan*/
 Route::get('/keluhan','KeluhanController@index');
 Route::post('/tambahKeluhan','KeluhanController@addKeluhan');
-
+Route::get('/keluhan/status','KeluhanController@changeKeluhan');
 
 
 

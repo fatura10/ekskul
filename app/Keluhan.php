@@ -50,4 +50,16 @@ class Keluhan extends Model
     }
     return ["error"=>"002","message"=>"Field ada yang kosong"];
   }
+  public static function updateData($data,$id_keluhan)
+  {
+    $data["updated_dt"]=date("Y-m-d H:i:s");
+    $data["updated_user"]=SESSION::get('userData')['userData']['user_id'];
+    if (self::where('id_keluhan',$id_keluhan)->update($data)) {
+      if (!HisKeluhan::insertData(["status"=>$data['status'],"id_keluhan"=>$id_keluhan])['error']) {
+        return ["error"=>false,"message"=>"Keluhan Berhasil diupdate"];
+      }
+      return ["error"=>"003","message"=>"History Keluhan Gagal"];
+    }
+    return ["error"=>"001","message"=>"Gagal Update Keluhan"];
+  }
 }

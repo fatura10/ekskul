@@ -10,7 +10,7 @@
                 <ul class="metismenu" id="menu">
                     <li><a href="/dashboard"><i class="ti-receipt"></i> <span>Dashboard</span></a></li>
                     @if(Session::has('userData'))
-                      @if(SESSION::get('userData')['userData']['fullName']==1)
+                      @if(SESSION::get('userData')['userData']['level']==1)
                     <li>
                         <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>Master</span></a>
                         <ul class="collapse">
