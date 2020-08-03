@@ -84,6 +84,10 @@ Route::get('/absen','AbsenController@index');
 /*Routing Nilai*/
 Route::post('/nilai/save','NilaiController@saveNilai');
 
+/*Routing Keluhan*/
+Route::get('/keluhan','KeluhanController@index');
+Route::post('/tambahKeluhan','KeluhanController@addKeluhan');
+
 
 
 
