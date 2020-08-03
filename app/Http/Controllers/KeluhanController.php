@@ -25,4 +25,8 @@ class KeluhanController extends Controller
     {
       return response()->json(Keluhan::updateData(["status"=>$req->status],$req->id_keluhan));
     }
+    public function saveFeedback(Request $req)
+    {
+      return response()->json(Keluhan::updateData(["feedback"=>$req->feedback,"status" => 2],$req->id_keluhan));
+    }
 }

@@ -19,7 +19,9 @@
             <div class="card-body">
 				<div class="row">
 					<div class="col-lg-12">
+            @if(SESSION::get('userData')['userData']['level']!=1)
 						<a href="#" class="btn btn-success float-right m-3 btn-add" data-toggle="modal" data-target="#addKeluhan"> Tambah Keluhan </a>
+            @endif
 					</div>
 				</div>
                 <div class="table-responsive">
@@ -42,15 +44,15 @@
                                 @if(SESSION::get('userData')['userData']['level']!=1)
                                 {{$data->feedback}}
                                 @else
-                                <textarea name="feedbac" class="form-control"></textarea>
-                                <button type="button" class="btn btn-success btn-sm btn-rounded" id="btn-feedback">Simpan</button>
+                                <textarea name="feedback" class="form-control" {{$data->status==2?'disabled':''}}>{{$data->feedback}}</textarea>
+                                <button type="button" class="btn btn-success btn-sm btn-rounded" id="btn-feedback" data-id="{{$data->id_keluhan}}">Simpan</button>
                                 @endif
                               </td>
                               <td class="text-center">
                                 @if(SESSION::get('userData')['userData']['level']!=1)
                                 <i class="badge badge-{{($data->status==0?'primary':($data->status==1?'warning':'success'))}}">{{($data->status==0?'Terkirim':($data->status==1?'Diproses':'Selesai'))}}</i>
                                 @else
-                                  <select class="form-control" name="status" data-id="{{$data->id_keluhan}}" id="statusKeluhan">
+                                  <select class="form-control" name="status" data-id="{{$data->id_keluhan}}" {{$data->status==2?'disabled':''}} id="statusKeluhan">
                                     <option value="">status</option>
                                     <option value="0" {{$data->status==0?'selected':''}}>Terkirim</option>
                                     <option value="1" {{$data->status==1?'selected':''}}>Diproses</option>
@@ -106,7 +108,8 @@
     $.get('/keluhan/status?id_keluhan='+$(this).data('id')+'&status='+$(this).val(),function(data){
       console.log(data);
       if (!data.error) {
-        window.reload()
+        location.reload()
+        return
       }
       alert(data.message)
     })
@@ -117,6 +120,20 @@
     $('#modal-tittle').text('Tambah Keluhan')
     $('#tambahKeluhan')[0].reset()
 
+  })
+  $('#btn-feedback').click(function(){
+    $.ajax({
+      type: "POST",
+      url: '/api/keluhan/feedback',
+      data: {feedback : $('textarea[name="feedback"]').val(),"id_keluhan":$(this).data("id")},
+      success: function(data){
+        if (!data.error) {
+          location.reload()
+          return
+        }
+        alert(data.message)
+      }
+    });
   })
 </script>
 @endsection
