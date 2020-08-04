@@ -103,7 +103,11 @@
 </div>
 
 
+<<<<<<< HEAD
 <script type="text/javascript"> 
+=======
+<script type="text/javascript">  
+>>>>>>> 513425a470d892d20dd5e7380fe397b6f1ae1554
   $('select[name="status"]').change(function(){
     $.get('/keluhan/status?id_keluhan='+$(this).data('id')+'&status='+$(this).val(),function(data){
       console.log(data);
