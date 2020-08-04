@@ -23,7 +23,7 @@ class Nilai extends Model
     $formValidate = [
         'nilai' => 'required',
         'id_siswa' => 'required',
-        'id_jadwal' => 'required'
+        'id_ekskul' => 'required'
     ];
     $validator = Validator::make($data,$formValidate );
 

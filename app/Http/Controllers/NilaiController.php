@@ -16,9 +16,8 @@ class NilaiController extends Controller
         $dataInsert = [
           "id_siswa"=>$req->id_siswa[$i],
           "nilai"=>($req->nilai[$i]==null?0:$req->nilai[$i]),
-          "id_ekskul"=>$req->id_jadwal
+          "id_ekskul"=>$req->id_ekskul
         ];
-        print_r($dataInsert);
         if (!Nilai::insertData($dataInsert)['error']) {
           $insertVal = $insertVal+1;
         }
