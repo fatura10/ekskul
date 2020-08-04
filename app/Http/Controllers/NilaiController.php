@@ -21,7 +21,7 @@ class NilaiController extends Controller
         if (!Nilai::insertData($dataInsert)['error']) {
           $insertVal = $insertVal+1;
         }
-      }
+      } 
       if ($insertVal==count($req->nilai)) {
         return redirect()->back()->with(["error"=>false,"message"=>"Tambah Nilai Berhasil"]);
       }
