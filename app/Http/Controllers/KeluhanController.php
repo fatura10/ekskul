@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Keluhan;
 use Session;
 
-class KeluhanController extends Controller
+class KeluhanController extends Controller 
 {
     public function index ()
     {
