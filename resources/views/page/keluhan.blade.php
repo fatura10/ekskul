@@ -45,7 +45,7 @@
                                 {{$data->feedback}}
                                 @else
                                 <textarea name="feedback" class="form-control" {{$data->status==2?'disabled':''}}>{{$data->feedback}}</textarea>
-                                <button type="button" class="btn btn-success btn-sm btn-rounded" id="btn-feedback" data-id="{{$data->id_keluhan}}">Simpan</button>
+                                <button type="button" class="btn btn-success btn-sm btn-rounded btn-feedback" data-id="{{$data->id_keluhan}}">Simpan</button>
                                 @endif
                               </td>
                               <td class="text-center">
@@ -121,7 +121,7 @@
     $('#tambahKeluhan')[0].reset()
 
   })
-  $('#btn-feedback').click(function(){
+  $('.btn-feedback').click(function(){
     $.ajax({
       type: "POST",
       url: '/api/keluhan/feedback',
