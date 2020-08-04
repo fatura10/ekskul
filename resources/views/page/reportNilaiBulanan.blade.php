@@ -90,8 +90,9 @@
                             <td>{{$z++}}</td>
                             <td>{{$data['nama_siswa']}}</td>
                             <td>{{$data['kelas']}}</td>
-                            @for($i=0;$i<12;$i++)
                             @php($gTotal=0)
+                            @for($i=0;$i<12;$i++)
+
                             @php($total=$total+$data[($i+1)])
                              <th>{{$data[($i+1)]==0?'':$data[($i+1)]}}</th>
                              @if($i==5||$i==11)
