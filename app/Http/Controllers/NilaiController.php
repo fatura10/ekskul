@@ -22,7 +22,7 @@ class NilaiController extends Controller
         if (!Nilai::insertData($dataInsert)['error']) {
           $insertVal = $insertVal+1;
         }
-      }
+      } 
       if ($insertVal==count($req->nilai)) {
         return redirect()->back()->with(["error"=>false,"message"=>"Tambah Nilai Berhasil"]);
       }
@@ -70,7 +70,7 @@ class NilaiController extends Controller
               ) AS X
               JOIN tb_kelas c ON c.`id_kelas` =x.`id_kelas`
               GROUP BY x.`nama_siswa`,c.`nama`";
-              
+
       $dataReport =  DB::select($query);
       $dataEkskul = Ekskul::where('id_ekskul',$req->id_ekskul)->first();
       $dtLength = date('t');
