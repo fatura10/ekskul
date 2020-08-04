@@ -103,7 +103,7 @@
 </div>
 
 
-<script type="text/javascript">  
+<script type="text/javascript">   
   $('select[name="status"]').change(function(){
     $.get('/keluhan/status?id_keluhan='+$(this).data('id')+'&status='+$(this).val(),function(data){
       console.log(data);
